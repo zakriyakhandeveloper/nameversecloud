@@ -1,244 +1,88 @@
-'use client';
+/**
+ * Knowledge Graph — Premium Knowledge Panel
+ *
+ * Compact, clean panel resembling Google's Knowledge Panel.
+ * Sticky on desktop, provides a quick summary of the name's key facts.
+ */
 
-import { useMemo } from 'react';
-import Link from 'next/link';
-import { ENTITY_RELATIONSHIPS, ENTITY_TYPES } from '@/lib/seo/topical-authority-architecture';
-import { Network, BookOpen, Globe, MapPin, Heart, Sparkles, Sun, Moon, Star, Flower2, Shield, Crown, Palette, Languages, History, Users } from 'lucide-react';
+import { Hash, Heart, Volume2, Globe, Shield, BookOpen } from 'lucide-react';
 
-function getEntityIcon(type) {
-  const icons = {
-    [ENTITY_TYPES.RELIGION]: BookOpen,
-    [ENTITY_TYPES.ORIGIN]: Globe,
-    [ENTITY_TYPES.LANGUAGE]: Languages,
-    [ENTITY_TYPES.COUNTRY]: MapPin,
-    [ENTITY_TYPES.THEME]: Sparkles,
-    [ENTITY_TYPES.MEANING]: Heart,
-    [ENTITY_TYPES.LETTER]: 'A',
-    [ENTITY_TYPES.GENDER]: Users,
-    [ENTITY_TYPES.CULTURE]: Users,
-    [ENTITY_TYPES.ERA]: History,
-    [ENTITY_TYPES.PROFESSION]: Shield,
-    [ENTITY_TYPES.PERSONALITY]: Heart,
-    [ENTITY_TYPES.NUMEROLOGY]: Sparkles,
-    [ENTITY_TYPES.ZODIAC]: Star,
-    [ENTITY_TYPES.ELEMENT]: Sun,
-    [ENTITY_TYPES.COLOR]: Palette,
-    [ENTITY_TYPES.NATURE]: Sun,
-    [ENTITY_TYPES.FLOWER]: Flower2,
-    [ENTITY_TYPES.ANIMAL]: '🐾',
-    [ENTITY_TYPES.VIRTUE]: Heart,
-    [ENTITY_TYPES.ROYAL]: Crown,
-    [ENTITY_TYPES.BIBLICAL]: BookOpen,
-    [ENTITY_TYPES.QURANIC]: BookOpen,
-    [ENTITY_TYPES.VEDIC]: BookOpen,
-  };
-  return icons[type] || Sparkles;
+function cleanText(text = '') {
+  return String(text || '').replace(/\s+/g, ' ').trim();
 }
 
-function getEntityColor(type) {
-  const colors = {
-    [ENTITY_TYPES.RELIGION]: 'bg-amber-50 text-amber-800 border-amber-200',
-    [ENTITY_TYPES.ORIGIN]: 'bg-blue-50 text-blue-800 border-blue-200',
-    [ENTITY_TYPES.LANGUAGE]: 'bg-indigo-50 text-indigo-800 border-indigo-200',
-    [ENTITY_TYPES.COUNTRY]: 'bg-emerald-50 text-emerald-800 border-emerald-200',
-    [ENTITY_TYPES.THEME]: 'bg-purple-50 text-purple-800 border-purple-200',
-    [ENTITY_TYPES.MEANING]: 'bg-rose-50 text-rose-800 border-rose-200',
-    [ENTITY_TYPES.CULTURE]: 'bg-teal-50 text-teal-800 border-teal-200',
-    [ENTITY_TYPES.ERA]: 'bg-orange-50 text-orange-800 border-orange-200',
-    [ENTITY_TYPES.VIRTUE]: 'bg-pink-50 text-pink-800 border-pink-200',
-    [ENTITY_TYPES.NATURE]: 'bg-green-50 text-green-800 border-green-200',
-    [ENTITY_TYPES.FLOWER]: 'bg-fuchsia-50 text-fuchsia-800 border-fuchsia-200',
-    [ENTITY_TYPES.ANIMAL]: 'bg-lime-50 text-lime-800 border-lime-200',
-    [ENTITY_TYPES.ROYAL]: 'bg-yellow-50 text-yellow-800 border-yellow-200',
-    [ENTITY_TYPES.BIBLICAL]: 'bg-sky-50 text-sky-800 border-sky-200',
-    [ENTITY_TYPES.QURANIC]: 'bg-emerald-50 text-emerald-800 border-emerald-200',
-    [ENTITY_TYPES.VEDIC]: 'bg-orange-50 text-orange-800 border-orange-200',
-    [ENTITY_TYPES.ELEMENT]: 'bg-cyan-50 text-cyan-800 border-cyan-200',
-    [ENTITY_TYPES.COLOR]: 'bg-violet-50 text-violet-800 border-violet-200',
-    [ENTITY_TYPES.PROFESSION]: 'bg-slate-50 text-slate-800 border-slate-200',
-  };
-  return colors[type] || 'bg-gray-50 text-gray-800 border-gray-200';
+function getReligionLabel(religion) {
+  const r = cleanText(religion).toLowerCase();
+  if (r === 'islamic') return 'Islamic';
+  if (r === 'christian') return 'Christian';
+  if (r === 'hindu') return 'Hindu';
+  return cleanText(religion);
 }
 
-function getEntityTypeLabel(type) {
-  const labels = {
-    [ENTITY_TYPES.RELIGION]: 'Religion',
-    [ENTITY_TYPES.ORIGIN]: 'Origin',
-    [ENTITY_TYPES.LANGUAGE]: 'Language',
-    [ENTITY_TYPES.COUNTRY]: 'Country',
-    [ENTITY_TYPES.THEME]: 'Theme',
-    [ENTITY_TYPES.MEANING]: 'Meaning',
-    [ENTITY_TYPES.CULTURE]: 'Culture',
-    [ENTITY_TYPES.ERA]: 'Era',
-    [ENTITY_TYPES.VIRTUE]: 'Virtue',
-    [ENTITY_TYPES.NATURE]: 'Nature',
-    [ENTITY_TYPES.FLOWER]: 'Flower',
-    [ENTITY_TYPES.ANIMAL]: 'Animal',
-    [ENTITY_TYPES.ROYAL]: 'Royal',
-    [ENTITY_TYPES.BIBLICAL]: 'Biblical',
-    [ENTITY_TYPES.QURANIC]: 'Quranic',
-    [ENTITY_TYPES.VEDIC]: 'Vedic',
-    [ENTITY_TYPES.ELEMENT]: 'Element',
-    [ENTITY_TYPES.COLOR]: 'Color',
-    [ENTITY_TYPES.PROFESSION]: 'Profession',
-  };
-  return labels[type] || 'Entity';
+function getGenderLabel(gender) {
+  const value = cleanText(gender).toLowerCase();
+  if (value.includes('female')) return 'Girl';
+  if (value.includes('male')) return 'Boy';
+  if (value.includes('unisex') || value.includes('neutral')) return 'Unisex';
+  return cleanText(gender) || 'Baby';
 }
 
 export default function KnowledgeGraph({ data, religion }) {
-  const connectedEntities = useMemo(() => {
-    const entities = [];
-    const seen = new Set();
+  const religionDisplay = getReligionLabel(religion || data.religion);
+  const genderDisplay = getGenderLabel(data.gender);
+  const pronunciation = data.pronunciation?.english || data.pronunciation?.ipa || '';
+  const luckyNumber = data.lucky_number || data.luckyNumber || '';
 
-    if (religion) {
-      const religionKey = religion === 'islamic' ? 'islam' : religion === 'christian' ? 'christianity' : religion === 'hindu' ? 'hinduism' : null;
-      if (religionKey && ENTITY_RELATIONSHIPS[religionKey] && !seen.has(religionKey)) {
-        seen.add(religionKey);
-        entities.push({ key: religionKey, ...ENTITY_RELATIONSHIPS[religionKey] });
-      }
-    }
-
-    if (data.origin) {
-      const originKey = data.origin.toLowerCase().replace(/\s+/g, '-');
-      if (ENTITY_RELATIONSHIPS[originKey] && !seen.has(originKey)) {
-        seen.add(originKey);
-        entities.push({ key: originKey, ...ENTITY_RELATIONSHIPS[originKey] });
-      }
-    }
-
-    const languageKeys = ['arabic', 'hebrew', 'sanskrit', 'greek', 'latin', 'persian', 'turkish', 'urdu', 'english'];
-    languageKeys.forEach(key => {
-      if (ENTITY_RELATIONSHIPS[key] && !seen.has(key)) {
-        const langField = `in_${key}`;
-        if (data[langField]?.name || data[langField]?.meaning) {
-          seen.add(key);
-          entities.push({ key, ...ENTITY_RELATIONSHIPS[key] });
-        }
-      }
-    });
-
-    if (data.short_meaning || data.meaning) {
-      const meaningText = (data.short_meaning || data.meaning || '').toLowerCase();
-      const meaningKeys = ['strength', 'love', 'peace', 'wisdom', 'beauty', 'grace', 'gift', 'light', 'hope', 'faith', 'joy', 'power', 'king', 'queen', 'warrior', 'protector', 'blessing', 'star', 'moon', 'sun', 'river', 'mountain', 'garden', 'heaven', 'praiseworthy'];
-      meaningKeys.forEach(key => {
-        if (meaningText.includes(key) && ENTITY_RELATIONSHIPS[key] && !seen.has(key)) {
-          seen.add(key);
-          entities.push({ key, ...ENTITY_RELATIONSHIPS[key] });
-        }
-      });
-    }
-
-    const countryMap = {
-      'arabic': ['saudi-arabia', 'egypt', 'uae'],
-      'persian': ['iran'],
-      'turkish': ['turkey'],
-      'urdu': ['pakistan'],
-      'sanskrit': ['india'],
-      'english': ['united-states', 'united-kingdom'],
-    };
-    if (data.origin) {
-      const originLower = data.origin.toLowerCase();
-      const countryKeys = countryMap[originLower] || [];
-      countryKeys.forEach(key => {
-        if (ENTITY_RELATIONSHIPS[key] && !seen.has(key)) {
-          seen.add(key);
-          entities.push({ key, ...ENTITY_RELATIONSHIPS[key] });
-        }
-      });
-    }
-
-    if (religion === 'islamic' && !seen.has('quran')) {
-      seen.add('quran');
-      entities.push({ key: 'quran', ...ENTITY_RELATIONSHIPS.quran });
-    }
-    if (religion === 'christian' && !seen.has('bible')) {
-      seen.add('bible');
-      entities.push({ key: 'bible', ...ENTITY_RELATIONSHIPS.bible });
-    }
-    if (religion === 'hindu' && !seen.has('veda')) {
-      seen.add('veda');
-      entities.push({ key: 'veda', ...ENTITY_RELATIONSHIPS.veda });
-    }
-
-    const cultureKey = religion === 'islamic' ? 'islamic-culture' : religion === 'christian' ? 'christian-culture' : religion === 'hindu' ? 'hindu-culture' : null;
-    if (cultureKey && ENTITY_RELATIONSHIPS[cultureKey] && !seen.has(cultureKey)) {
-      seen.add(cultureKey);
-      entities.push({ key: cultureKey, ...ENTITY_RELATIONSHIPS[cultureKey] });
-    }
-
-    return entities.slice(0, 12);
-  }, [data, religion]);
-
-  if (connectedEntities.length === 0) return null;
+  const items = [
+    { label: 'Religion', value: religionDisplay, icon: Shield },
+    { label: 'Gender', value: genderDisplay, icon: Heart },
+    { label: 'Origin', value: data.origin || '—', icon: Globe },
+    { label: 'Pronunciation', value: pronunciation || '—', icon: Volume2 },
+    { label: 'Lucky Number', value: luckyNumber || '—', icon: Hash },
+  ];
 
   return (
-    <section>
-      <div className="mb-5 flex items-start gap-3">
-        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-violet-100 text-violet-700 shadow-sm">
-          <Network className="h-5 w-5" />
+    <div className="space-y-4">
+      <div className="flex items-center gap-3 pb-3 border-b border-[color:var(--nv-border)]">
+        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[color:var(--nv-accent-soft-bg)] text-[color:var(--nv-accent-soft-fg)]">
+          <BookOpen className="h-5 w-5" />
         </div>
         <div>
-          <h2 className="nv-display text-xl font-semibold text-[color:var(--nv-ink)]">Knowledge Graph</h2>
-          <p className="mt-1 text-sm text-[color:var(--nv-muted)]">Connected entities and semantic relationships</p>
+          <h3 className="text-sm font-bold text-[color:var(--nv-ink)]">Knowledge Panel</h3>
+          <p className="text-[11px] text-[color:var(--nv-muted)]">Quick facts about {data.name}</p>
         </div>
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {connectedEntities.map((entity) => {
-          const colorClass = getEntityColor(entity.type);
-          const typeLabel = getEntityTypeLabel(entity.type);
-          const IconComponent = getEntityIcon(entity.type);
-
-          const label = typeof entity.label === 'string' ? entity.label : (typeof entity.label === 'object' && entity.label !== null ? entity.label.name || entity.label.text || JSON.stringify(entity.label) : String(entity.label || ''));
-          const description = typeof entity.description === 'string' ? entity.description : (typeof entity.description === 'object' && entity.description !== null ? entity.description.text || entity.description.name || JSON.stringify(entity.description) : String(entity.description || ''));
-          const href = typeof entity.url === 'string' ? entity.url : '#';
-
-          if (!label) return null;
-
+      <div className="space-y-2">
+        {items.map((item) => {
+          const Icon = item.icon;
           return (
-            <Link
-              key={entity.key}
-              href={href}
-              className={`rounded-2xl border p-4 transition-all hover:-translate-y-0.5 hover:shadow-md ${colorClass}`}
+            <div
+              key={item.label}
+              className="flex items-center gap-3 rounded-xl px-3 py-2 transition hover:bg-[color:var(--nv-surface)]"
             >
-              <div className="flex items-start gap-3">
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/60">
-                  {typeof IconComponent === 'function' ? (
-                    <IconComponent className="h-4 w-4" />
-                  ) : typeof IconComponent === 'string' ? (
-                    <span className="text-sm">{IconComponent}</span>
-                  ) : (
-                    <span className="text-sm">*</span>
-                  )}
-                </div>
-                <div className="min-w-0">
-                  <div className="flex items-center gap-2">
-                    <span className="text-[11px] font-bold uppercase tracking-[0.18em] opacity-70">
-                      {typeLabel}
-                    </span>
-                  </div>
-                  <span className="block text-sm font-semibold mt-0.5 truncate">
-                    {label}
-                  </span>
-                  <span className="block text-xs mt-1 opacity-75 line-clamp-2">
-                    {description}
-                  </span>
-                </div>
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[color:var(--nv-surface)] text-[color:var(--nv-muted)]">
+                <Icon className="h-4 w-4" />
               </div>
-            </Link>
+              <div className="min-w-0 flex-1">
+                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[color:var(--nv-muted)]">
+                  {item.label}
+                </p>
+                <p className="truncate text-sm font-medium text-[color:var(--nv-ink)]">
+                  {item.value}
+                </p>
+              </div>
+            </div>
           );
         })}
       </div>
 
-      <div className="mt-5 pt-4 border-t border-[color:var(--nv-border)]">
-        <Link
-          href="/names-by-meaning"
-          className="inline-flex items-center gap-2 text-sm font-medium text-[color:var(--nv-accent-2)] transition hover:text-[color:var(--nv-accent)]"
-        >
-          <Network className="h-4 w-4" />
-          Explore the complete name knowledge graph
-        </Link>
-      </div>
-    </section>
+      {/* Quick meaning snippet */}
+      {data.short_meaning && (
+        <div className="mt-3 rounded-xl bg-[color:var(--nv-surface)] p-3 text-sm leading-relaxed text-[color:var(--nv-muted)]">
+          <span className="font-medium text-[color:var(--nv-ink)]">Meaning:</span> {data.short_meaning}
+        </div>
+      )}
+    </div>
   );
 }

@@ -17,15 +17,11 @@ import { useEffect } from 'react';
 const REVOLTHEM_SCRIPTS = [
   {
     id: 'revolthem-native-invoke',
-    src: 'https://revolthem.com/1606e7870f004d67136f85f2b1698cd3/invoke.js',
-  },
-  {
-    id: 'revolthem-mobile-invoke',
-    src: 'https://revolthem.com/1b/54/37/1b543736c10a38ea4ca3f6f7bc8a7a9b.js',
+    src: 'https://revolthem.com/c90e1cf06dc7451f1fd3d33c703af951/invoke.js',
   },
   {
     id: 'revolthem-popunder',
-    src: 'https://revolthem.com/15/fc/e7/15fce756a2be02e450ad8ee3543b0575.js',
+    src: 'https://revolthem.com/5e0cdf883b6f082ca7c001d812ce1be6.js',
   },
 ];
 

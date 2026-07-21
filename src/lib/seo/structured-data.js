@@ -3,30 +3,9 @@
  */
 import { getSiteUrl } from '@/lib/seo/site';
 import { nameAbsoluteUrl } from '@/lib/seo/url-builder';
+import { cleanText, normalizeReligion, getReligionLabel, getGenderLabel } from '@/lib/seo/religion';
 
 const SITE_NAME = 'NameVerse';
-
-function cleanText(text = '') {
-  return String(text || '')
-    .replace(/\s+/g, ' ')
-    .trim();
-}
-
-function normalizeReligion(religion) {
-  const r = String(religion || '').toLowerCase();
-  if (r === 'islam' || r === 'muslim' || r === 'islamic') return 'islamic';
-  if (r === 'christianity' || r === 'christian') return 'christian';
-  if (r === 'hinduism' || r === 'hindu') return 'hindu';
-  return r;
-}
-
-function getReligionLabel(religion) {
-  const normalized = normalizeReligion(religion);
-  if (normalized === 'islamic') return 'Islamic';
-  if (normalized === 'christian') return 'Christian';
-  if (normalized === 'hindu') return 'Hindu';
-  return cleanText(religion) || 'Cultural';
-}
 
 function getOrigin(nameData) {
   return cleanText(nameData.origin) || 'Multiple linguistic traditions';
@@ -37,14 +16,6 @@ function getCoreMeaning(nameData) {
   if (!meaning) return 'meaningful cultural name';
   const firstPart = meaning.split(',')[0].split('·')[0].split(';')[0].trim();
   return firstPart || meaning;
-}
-
-function getGender(nameData) {
-  const gender = cleanText(nameData.gender).toLowerCase();
-  if (gender.includes('male')) return 'Male';
-  if (gender.includes('female')) return 'Female';
-  if (gender.includes('unisex') || gender.includes('neutral')) return 'Unisex';
-  return cleanText(nameData.gender) || 'Unisex';
 }
 
 function getLanguages(nameData) {
@@ -208,6 +179,37 @@ function getTermId(pageUrl) {
 }
 
 /**
+ * Rough word-count estimate built from the actual text fields available on
+ * the record, used for ScholarlyArticle's `wordCount`. This used to be a
+ * hardcoded `500` on every single page regardless of real content length —
+ * structured data that visibly doesn't match the page is exactly the kind
+ * of signal that erodes trust in the rest of your markup.
+ */
+function estimateWordCount(nameData, coreMeaning, origin, religionLabel) {
+  const parts = [
+    nameData.long_meaning,
+    nameData.numerology_meaning,
+    nameData.spiritual_meaning || nameData.spiritual_significance,
+    nameData.cultural_impact,
+    nameData.personality_traits,
+    coreMeaning,
+    origin,
+    religionLabel,
+  ];
+  if (Array.isArray(nameData.historical_references)) parts.push(nameData.historical_references.join(' '));
+  if (Array.isArray(nameData.celebrity_usage)) {
+    parts.push(nameData.celebrity_usage.map(c => (typeof c === 'string' ? c : JSON.stringify(c))).join(' '));
+  }
+  if (Array.isArray(nameData.emotional_traits)) parts.push(nameData.emotional_traits.join(' '));
+  if (Array.isArray(nameData.hidden_personality_traits)) parts.push(nameData.hidden_personality_traits.join(' '));
+
+  const text = parts.map(p => cleanText(typeof p === 'string' ? p : '')).filter(Boolean).join(' ');
+  const count = text ? text.split(/\s+/).filter(Boolean).length : 0;
+  // Floor so very thin records don't report an implausible near-zero count.
+  return Math.max(count, 60);
+}
+
+/**
  * Generate NameDataset schema for individual name pages
  */
 export function generateNameDatasetSchema(nameData, religion, slug) {
@@ -217,7 +219,7 @@ export function generateNameDatasetSchema(nameData, religion, slug) {
   const origin = getOrigin(nameData);
   const religionLabel = getReligionLabel(nameData.religion || religion);
   const languages = getLanguages(nameData);
-  const gender = getGender(nameData);
+  const gender = getGenderLabel(nameData.gender);
   const pronunciation = getPronunciation(nameData);
   const traits = getPersonalityTraits(nameData);
   const luckyNumber = nameData.lucky_number || nameData.luckyNumber || '';
@@ -377,7 +379,7 @@ export function generateNameDefinedTermSchema(nameData, religion, slug) {
   const origin = getOrigin(nameData);
   const religionLabel = getReligionLabel(nameData.religion || religion);
   const languages = getLanguages(nameData);
-  const gender = getGender(nameData);
+  const gender = getGenderLabel(nameData.gender);
   const pronunciation = getPronunciation(nameData);
   const coreMeaning = getCoreMeaning(nameData);
   const luckyNumber = nameData.lucky_number || nameData.luckyNumber || '';
@@ -409,6 +411,16 @@ export function generateNameDefinedTermSchema(nameData, religion, slug) {
 
 /**
  * Generate ScholarlyArticle schema
+ *
+ * NOTE ON RISK: this page also emits a separate `Article` schema for the
+ * same URL/content (see generateNameArticleSchema above). Marking up one
+ * piece of content as two different, competing creative-work types is
+ * something Google's structured data guidelines specifically warn against
+ * ("markup should reflect the primary content of the page"), and
+ * `ScholarlyArticle` in particular implies peer-reviewed academic content,
+ * which a name-meaning entry isn't. This isn't broken, but it's a
+ * legitimate ranking risk worth a deliberate decision rather than emitting
+ * both by default — consider dropping this schema and keeping just Article.
  */
 export function generateNameScholarlyArticle(nameData, religion, slug) {
   const pageUrl = nameAbsoluteUrl(religion, slug);
@@ -443,7 +455,9 @@ export function generateNameScholarlyArticle(nameData, religion, slug) {
     },
     articleSection: 'Name Meaning',
     keywords: `${name} meaning, ${name} origin, ${origin} linguistics, ${religionLabel} names, pronunciation, lucky number, cultural context`,
-    wordCount: 500,
+    // FIX: was a hardcoded `500` on every page regardless of actual content
+    // length. Now estimated from the fields actually present on the record.
+    wordCount: estimateWordCount(nameData, coreMeaning, origin, religionLabel),
     citation: { '@type': 'CreativeWork', name: `${SITE_NAME} — Cultural Name Knowledge Base`, url: baseUrl },
   };
 }

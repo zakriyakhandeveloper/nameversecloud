@@ -17,7 +17,7 @@ const RELIGION_LABELS = {
 };
 
 // ISR with 60-day cache to minimize writes
-export const revalidate = 31536000; // 365 days
+export const revalidate = 2592000; // 30 days
 export const dynamicParams = true;
 
 // Pre-generate religion pages at build time

@@ -7,6 +7,7 @@ import CulturalNameAnalysisCard from '@/components/name/NameDetail';
 import Script from 'next/script';
 import fs from 'fs';
 import path from 'path';
+import NativeBanner from '@/components/Ads/NativeBanner';
 
 const VALID_RELIGIONS = ['islamic', 'christian', 'hindu'];
 
@@ -312,7 +313,20 @@ export default async function NameDetailPage({ params }) {
 
   const pageUrl = nameAbsoluteUrl(religion, slug);
   const schemas = generateNamePageSchemas(nameData, religion, slug);
-  const faqData = schemas.faqData || [];
+
+  // ── FAQ data (Part 2) ──
+  // The backend returns TWO faq arrays with different phrasing:
+  //   data.seo.seo.faq  (primary, richer phrasing)
+  //   data.seo.faq       (nested duplicate, different wording)
+  // Use data.seo.seo.faq as primary; fall back to data.seo.faq only if the
+  // former is missing/empty. NOTE: this duplication is an API/data bug — the
+  // two arrays should be merged/normalised server-side. Temporary workaround
+  // until that's fixed. See FAQ section below for the rendering guard.
+  const apiSeo = nameData?.seo || {};
+  const nestedSeo = apiSeo?.seo || {};
+  const primaryFaq = Array.isArray(nestedSeo?.faq) ? nestedSeo.faq : [];
+  const fallbackFaq = Array.isArray(apiSeo?.faq) ? apiSeo.faq : [];
+  const faqData = primaryFaq.length > 0 ? primaryFaq : fallbackFaq;
 
   const trendingResult = await serverFetchTrendingNames({ religion, limit: 8 });
   const apiTrendingNames = (trendingResult.data || [])
@@ -374,14 +388,6 @@ export default async function NameDetailPage({ params }) {
         />
       )}
 
-      {schemas.faq && (
-        <Script
-          id="faq-schema"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemas.faq) }}
-        />
-      )}
-
       {schemas.breadcrumb && (
         <Script
           id="breadcrumb-schema"
@@ -389,6 +395,8 @@ export default async function NameDetailPage({ params }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemas.breadcrumb) }}
         />
       )}
+
+      <NativeBanner className="my-4" minHeight="90px" instanceId={`name-page-${slug}`} />
 
       <CulturalNameAnalysisCard
         data={nameData}

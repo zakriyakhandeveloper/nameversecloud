@@ -1,7 +1,14 @@
-"use client"
+"use client";
 
 import { useState } from 'react';
-import { Copy, MessageCircle } from 'lucide-react';
+import { Copy, MessageCircle, Check } from 'lucide-react';
+
+/**
+ * ShareButtons — Minimal, premium social sharing
+ *
+ * Brand colors are used only for the icon (authentic recognition).
+ * Copy action uses the page's own "social" token and flips to a success state.
+ */
 
 const FacebookIcon = ({ className = 'h-4 w-4' }) => (
   <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -20,6 +27,26 @@ const shareLinks = {
   twitter: (text, url) => `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`,
   whatsapp: (text, url) => `https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`,
 };
+
+const PLATFORM_STYLE = {
+  facebook: { icon: '#1877F2', hoverBorder: 'hover:border-[#1877F2]/30' },
+  twitter: { icon: '#1DA1F2', hoverBorder: 'hover:border-[#1DA1F2]/30' },
+  whatsapp: { icon: '#25D366', hoverBorder: 'hover:border-[#25D366]/30' },
+};
+
+function ShareButton({ platform, icon: Icon, label, onClick }) {
+  const style = PLATFORM_STYLE[platform];
+  return (
+    <button
+      onClick={onClick}
+      className={`flex items-center justify-center gap-2 rounded-full border border-[color:var(--nv-border)] bg-[color:var(--nv-surface)] px-4 py-2.5 text-sm font-medium text-[color:var(--nv-ink)] transition hover:-translate-y-0.5 hover:shadow-sm ${style.hoverBorder}`}
+      aria-label={`Share on ${label}`}
+    >
+      <Icon className="h-4 w-4" style={{ color: style.icon }} />
+      <span className="hidden sm:inline">{label}</span>
+    </button>
+  );
+}
 
 export default function ShareButtons({ name, pageUrl, description }) {
   const [copied, setCopied] = useState(false);
@@ -48,35 +75,31 @@ export default function ShareButtons({ name, pageUrl, description }) {
 
   return (
     <div className="space-y-3">
-      <div className="mb-2 text-sm font-bold uppercase tracking-[0.16em] text-[color:var(--nv-muted)]">Share this name</div>
-      <div className="grid grid-cols-2 gap-2">
-        <button
-          onClick={() => handleShare('facebook')}
-          className="flex items-center justify-center gap-2 rounded-2xl bg-[color:var(--nv-ink)] px-3 py-2.5 text-sm font-bold text-white transition hover:bg-slate-800"
-          aria-label="Share on Facebook"
-        >
-          <FacebookIcon className="h-4 w-4" /> Facebook
-        </button>
-        <button
-          onClick={() => handleShare('twitter')}
-          className="flex items-center justify-center gap-2 rounded-2xl bg-[color:var(--nv-ink)] px-3 py-2.5 text-sm font-bold text-white transition hover:bg-slate-800"
-          aria-label="Share on Twitter"
-        >
-          <TwitterIcon className="h-4 w-4" /> Twitter
-        </button>
-        <button
-          onClick={() => handleShare('whatsapp')}
-          className="flex items-center justify-center gap-2 rounded-2xl bg-[color:var(--nv-ink)] px-3 py-2.5 text-sm font-bold text-white transition hover:bg-slate-800"
-          aria-label="Share on WhatsApp"
-        >
-          <MessageCircle className="h-4 w-4" /> WhatsApp
-        </button>
+      <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-[color:var(--nv-muted)]">
+        Share this name
+      </div>
+      <div className="flex flex-wrap gap-2">
+        <ShareButton platform="facebook" icon={FacebookIcon} label="Facebook" onClick={() => handleShare('facebook')} />
+        <ShareButton platform="twitter" icon={TwitterIcon} label="Twitter" onClick={() => handleShare('twitter')} />
+        <ShareButton platform="whatsapp" icon={MessageCircle} label="WhatsApp" onClick={() => handleShare('whatsapp')} />
         <button
           onClick={() => handleShare('copy')}
-          className="flex items-center justify-center gap-2 rounded-2xl border border-[color:var(--nv-border)] bg-white/60 px-3 py-2.5 text-sm font-bold text-[color:var(--nv-ink)] transition hover:border-[color:var(--nv-accent-2)] hover:text-[color:var(--nv-accent-2)]"
+          className={`flex items-center justify-center gap-2 rounded-full border px-4 py-2.5 text-sm font-medium transition hover:-translate-y-0.5 hover:shadow-sm ${
+            copied
+              ? 'border-emerald-300 bg-emerald-50 text-emerald-700'
+              : 'border-[color:var(--nv-border)] bg-[color:var(--nv-surface)] text-[color:var(--nv-ink)] hover:border-[color:var(--nv-accent-5)]/30'
+          }`}
           aria-label="Copy page link"
         >
-          <Copy className="h-4 w-4" /> {copied ? 'Copied!' : 'Copy'}
+          {copied ? (
+            <>
+              <Check className="h-4 w-4 text-emerald-600" /> <span className="hidden sm:inline">Copied!</span>
+            </>
+          ) : (
+            <>
+              <Copy className="h-4 w-4 text-[color:var(--nv-accent-5)]" /> <span className="hidden sm:inline">Copy</span>
+            </>
+          )}
         </button>
       </div>
     </div>

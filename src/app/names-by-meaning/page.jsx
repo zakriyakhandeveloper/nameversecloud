@@ -8,7 +8,7 @@ import { gradientFor } from '@/lib/ui/colorGradient';
 import { createSafeSlug } from '@/lib/utils/createSafeSlug';
 
 // ISR: 30-day cache — static content
-export const revalidate = 31536000; // 365 days
+export const revalidate = 2592000; // 30 days
 
 export const metadata = {
   title: validateMetaTitle('Powerful Baby Names by Meaning: Love, Strength, Wisdom, Peace & More | NameVerse'),

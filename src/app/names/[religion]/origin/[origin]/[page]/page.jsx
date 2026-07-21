@@ -10,7 +10,7 @@ const VALID_RELIGIONS = ['islamic', 'christian', 'hindu'];
 const STATIC_ORIGINS = ['arabic', 'persian', 'turkish', 'indian', 'english', 'other'];
 
 // ISR with 60-day cache to minimize writes
-export const revalidate = 31536000; // 365 days
+export const revalidate = 2592000; // 30 days
 export const dynamicParams = true;
 
 // Pre-generate first pages of each origin/religion combo at build time; deeper

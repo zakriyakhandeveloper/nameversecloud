@@ -29,6 +29,7 @@ const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 const STATIC_CATEGORIES = ['modern', 'traditional', 'nature', 'religious', 'classical', 'unique'];
 const STATIC_ORIGINS = ['arabic', 'persian', 'turkish', 'indian', 'english', 'other'];
 const MAX_SITEMAP_URLS = 45000;
+const MAX_NAMES_PER_SITEMAP = 50;
 const MAX_COLLECTION_PAGES = 50; // Prevent thin pages beyond page 50
 const API_BASE = (process.env.NEXT_PUBLIC_API_BASE || 'https://name-meaning-site-backend.vercel.app').replace(/\/+$/, '');
 
@@ -61,7 +62,20 @@ function readJson(file, fallback) {
 function writeJson(file, data) {
   fs.mkdirSync(path.dirname(file), { recursive: true });
   const content = `${JSON.stringify(data, null, 2)}\n`;
-  // Retry on transient filesystem errors (e.g. file lock from sync tools).
+  let lastError;
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    try {
+      fs.writeFileSync(file, content);
+      return;
+    } catch (error) {
+      lastError = error;
+    }
+  }
+  throw lastError;
+}
+
+function writeRaw(file, content) {
+  fs.mkdirSync(path.dirname(file), { recursive: true });
   let lastError;
   for (let attempt = 0; attempt < 3; attempt += 1) {
     try {
@@ -508,7 +522,7 @@ export async function buildSitemapEntries() {
 
 export function groupEntries(entries) {
   const groups = { 
-    pages: [], names: [], blog: [], 
+    pages: [], name: [], blog: [], 
     popularity: [], letter: [], origin: [], category: [], gender: [] 
   };
   for (const entry of entries) {
@@ -533,35 +547,54 @@ function indexXml(locs) {
 }
 
 export async function writeSitemapFiles() {
-  // Guard: fail the build if any STATIC_ROUTES entry lost its page file.
   validateStaticRoutes();
 
   const { entries } = await buildSitemapEntries();
   const groups = groupEntries(entries);
   const sitemapLocs = [];
-  
-  const writeGroup = async (name, items) => {
-    const chunksOfItems = chunk(items, MAX_SITEMAP_URLS);
+
+  const writeGroup = async (name, items, dir = publicDir, chunkSize = MAX_SITEMAP_URLS) => {
+    const chunksOfItems = chunk(items, chunkSize);
     for (let i = 0; i < chunksOfItems.length; i += 1) {
       const file = chunksOfItems.length === 1 ? `sitemap-${name}.xml` : `sitemap-${name}-${i + 1}.xml`;
-      writeJson(path.join(publicDir, file), sitemapXml(chunksOfItems[i]));
-      sitemapLocs.push(`${process.env.NEXT_PUBLIC_SITE_URL || 'https://nameverse.site'}/${file}`);
+      writeRaw(path.join(dir, file), sitemapXml(chunksOfItems[i]));
+      const relativePath = path.relative(publicDir, path.join(dir, file)).replace(/\\/g, '/');
+      sitemapLocs.push(`${process.env.NEXT_PUBLIC_SITE_URL || 'https://nameverse.site'}/${relativePath}`);
     }
   };
-  
-  for (const [name, items] of Object.entries(groups)) {
+
+  const nonNameGroups = ['pages', 'blog', 'popularity', 'letter', 'origin', 'category', 'gender'];
+  for (const name of nonNameGroups) {
+    const items = groups[name] || [];
     if (items.length) await writeGroup(name, items);
   }
-  
+
+  const nameItems = groups.name || [];
+  if (nameItems.length) {
+    const byReligion = {};
+    for (const item of nameItems) {
+      const parts = item.path.split('/');
+      const religion = parts[2];
+      if (!RELIGIONS.includes(religion)) continue;
+      if (!byReligion[religion]) byReligion[religion] = [];
+      byReligion[religion].push(item);
+    }
+
+    for (const [religion, items] of Object.entries(byReligion)) {
+      const religionDir = path.join(publicDir, religion);
+      await writeGroup(`${religion}-names`, items, religionDir, MAX_NAMES_PER_SITEMAP);
+    }
+  }
+
   const useIndex = entries.length > MAX_SITEMAP_URLS || sitemapLocs.length > 1;
-  writeJson(path.join(publicDir, 'sitemap.xml'), useIndex ? indexXml(sitemapLocs) : sitemapXml(entries));
-  writeJson(path.join(publicDir, 'seo-sitemap-manifest.json'), { 
-    generatedAt: new Date().toISOString(), 
-    totalUrls: entries.length, 
-    sitemapCount: sitemapLocs.length, 
-    sitemaps: sitemapLocs 
+  writeRaw(path.join(publicDir, 'sitemap.xml'), useIndex ? indexXml(sitemapLocs) : sitemapXml(entries));
+  writeJson(path.join(publicDir, 'seo-sitemap-manifest.json'), {
+    generatedAt: new Date().toISOString(),
+    totalUrls: entries.length,
+    sitemapCount: sitemapLocs.length,
+    sitemaps: sitemapLocs,
   });
-  
+
   return { totalUrls: entries.length, sitemapCount: sitemapLocs.length, sitemaps: sitemapLocs };
 }
 

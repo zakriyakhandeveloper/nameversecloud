@@ -1,4 +1,4 @@
-export const revalidate = 31536000; // 365 days
+export const revalidate = 2592000; // 30 days
 
 import fs from 'node:fs';
 import path from 'node:path';

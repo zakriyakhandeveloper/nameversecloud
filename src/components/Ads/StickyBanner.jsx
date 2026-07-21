@@ -17,7 +17,7 @@ export default function StickyBanner() {
     const optScript = document.createElement('script');
     optScript.text = `
       window.atOptions = {
-        'key': 'fc169bf57d005797a92705dd75442526',
+        'key': '',
         'format': 'iframe',
         'height': 250,
         'width': 300,
@@ -27,7 +27,7 @@ export default function StickyBanner() {
     container.appendChild(optScript);
 
     const invScript = document.createElement('script');
-    invScript.src = 'https://revolthem.com/fc169bf57d005797a92705dd75442526/invoke.js';
+    invScript.src = '';
     invScript.async = true;
     invScript.defer = true;
     container.appendChild(invScript);

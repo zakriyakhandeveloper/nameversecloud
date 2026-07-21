@@ -12,7 +12,7 @@ const ALPHABET = 'abcdefghijklmnopqrstuvwxyz#'.split('');
 const NAMES_PER_PAGE = 50;
 
 // ISR with 60-day cache to minimize writes
-export const revalidate = 31536000; // 365 days
+export const revalidate = 2592000; // 30 days
 export const dynamicParams = true;
 
 // Pre-generate first pages of each letter/religion combo at build time; deeper

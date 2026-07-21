@@ -14,6 +14,13 @@ import { Suspense } from 'react';
 import Script from 'next/script';
 import RouteChrome from "@/components/Layout/RouteChrome";
 import NativeAdScript from "@/components/Ads/NativeAdScript";
+import NativeBarAd from "@/components/Ads/NativeBarAd";
+
+// Dedicated Revolthem container id for the top-of-page native bar (below the
+// navbar, every page). Distinct from the mid-page banner (container-1606e…)
+// so there is no duplicate-id collision. Its invoke.js is loaded in
+// NativeAdScript.jsx. The id MUST exactly match the dashboard container.
+const TOP_NATIVE_BAR_CONTAINER_ID = "container-c90e1cf06dc7451f1fd3d33c703af951";
 
 import { getSiteUrl } from '@/lib/seo/site';
 
@@ -124,9 +131,6 @@ export default function RootLayout({ children }) {
         <meta name="415fb3e376dd03499e3ea3cfd086272b2330a942" content="415fb3e376dd03499e3ea3cfd086272b2330a942" />
         <meta name="p:domain_verify" content="2182ce49319a6b4ede3da073a469ce4a" />
 
-        <link rel="preconnect" href="https://revolthem.com" />
-        <link rel="dns-prefetch" href="https://revolthem.com" />
-
         <ResourceHints />
 
         <link rel="icon" type="image/svg+xml" href="/logo.svg" />
@@ -159,11 +163,24 @@ export default function RootLayout({ children }) {
 
             <NativeAdScript />
 
+            {/* PAGE-TOP NATIVE BAR — directly below navbar, on every page.
+                Uses the REAL Revolthem container id (same one the invoke.js
+                script targets) with a reserved-height (.native-bar) wrapper so
+                there is zero layout shift. Desktop/mobile variants are toggled
+                by CSS; the Revolthem script serves the correct creative. */}
+            <NativeBarAd
+              variant="mobile"
+              containerId={TOP_NATIVE_BAR_CONTAINER_ID}
+              className="pt-3"
+            />
+            <NativeBarAd
+              variant="desktop"
+              containerId={TOP_NATIVE_BAR_CONTAINER_ID}
+              className="pt-3"
+            />
+
             {/* DESKTOP 4:1 AD — Desktop only */}
             <div id="container-desktop-4x1" className="hidden lg:block" />
-
-            {/* MOBILE NATIVE BANNER — Mobile only */}
-            <div id="container-1606e7870f004d67136f85f2b1698cd3" className="lg:hidden" />
 
             <RouteChrome>{children}</RouteChrome>
 
