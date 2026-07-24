@@ -3,25 +3,18 @@
 import { useEffect } from 'react';
 
 /**
- * NativeAdScript — Loads all global Revolthem monetization scripts once.
- *
- * Each script is loaded a single time (guarded by a unique id) and mounted in
- * <head>. Because this component is rendered at the root layout level, the
- * scripts run site-wide (every page).
- *
- * Scripts:
- *   - Native ads invoke.js (renders inside any container-* divs)
- *   - Social bar
- *   - Popunder
+  * NativeAdScript — Loads global Revolthem native ad script once.
+  *
+  * Because this component is rendered at the root layout level, the
+  * script runs site-wide (every page).
+  *
+  * Scripts:
+  *   - Native ads invoke.js (renders inside any container-* divs)
  */
 const REVOLTHEM_SCRIPTS = [
   {
     id: 'revolthem-native-invoke',
     src: 'https://revolthem.com/c90e1cf06dc7451f1fd3d33c703af951/invoke.js',
-  },
-  {
-    id: 'revolthem-popunder',
-    src: 'https://revolthem.com/5e0cdf883b6f082ca7c001d812ce1be6.js',
   },
 ];
 
