@@ -160,7 +160,7 @@ export default function ChristianBoyNamesPage() {
       <main className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-blue-50">
         {/* Hero Section */}
         <section className="relative py-20 px-4 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white overflow-hidden">
-          <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-10"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(rgba(11,20,32,.1)_1.5px,transparent_1.5px)] bg-[size:24px_24px]"></div>
           <div className="max-w-7xl mx-auto text-center relative z-10">
             <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-5 py-2.5 rounded-full text-sm font-medium mb-8 border border-white/30">
               <Sparkles className="w-4 h-4" />

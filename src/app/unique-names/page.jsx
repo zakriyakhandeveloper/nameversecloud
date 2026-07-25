@@ -157,7 +157,7 @@ export default async function UniqueNamesPage() {
       <SitePage className="bg-transparent" containerClassName="max-w-none px-0 py-0">
         {/* Hero Section */}
         <section className="relative py-16 sm:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
-          <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-[0.03] pointer-events-none"></div>
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(11,20,32,.03)_1px,transparent_1px),linear-gradient(90deg,rgba(11,20,32,.03)_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none"></div>
           <div className="max-w-7xl mx-auto relative z-10">
             <div className="text-center mb-12 sm:mb-16">
               <div className="inline-flex items-center justify-center gap-3 mb-6">
