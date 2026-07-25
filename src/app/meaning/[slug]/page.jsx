@@ -1,7 +1,7 @@
 export const revalidate = 2592000; // 30 days
 
-import fs from 'node:fs';
-import path from 'node:path';
+import meaningContent from '../../../../public/data/meaning-content.json';
+import blogPosts from '../../../../public/data/blog-posts.json';
 import Link from 'next/link';
 import Script from 'next/script';
 import { notFound } from 'next/navigation';
@@ -9,16 +9,10 @@ import { ArrowRight, BookOpen, Globe, Sparkles, Library } from 'lucide-react';
 import SitePage from '@/components/Layout/SitePage';
 import { validateMetaTitle, validateMetaDescription } from '@/lib/seo/meta-helpers';
 import { getSiteUrl } from '@/lib/seo/site';
-import { loadBlogPosts } from '@/lib/seo/sitemap-data.mjs';
-
-const meaningContentPath = path.join(process.cwd(), 'public', 'data', 'meaning-content.json');
+const BLOG_POSTS = blogPosts;
 
 function readMeaningContent() {
-  try {
-    return JSON.parse(fs.readFileSync(meaningContentPath, 'utf8'));
-  } catch {
-    return [];
-  }
+  return meaningContent;
 }
 
 function findMeaning(slug) {
@@ -115,7 +109,7 @@ export default async function MeaningPage({ params }) {
   const { slug } = await params;
   const meaning = findMeaning(slug);
   if (!meaning) notFound();
-  const posts = loadBlogPosts().slice(0, 4);
+  const posts = BLOG_POSTS.slice(0, 4);
   const relatedMeanings = (meaning.relatedMeanings || []).slice(0, 12);
   const paragraphs = generateParagraphs(meaning);
 

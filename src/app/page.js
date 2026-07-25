@@ -1,36 +1,29 @@
-import fs from 'fs';
-import path from 'path';
 import HomePageClient from '@/components/HomePage/Homepage';
 import { validateMetaDescription, validateMetaTitle } from '@/lib/seo/meta-helpers';
 import { getSiteUrl } from '@/lib/seo/site';
+import blogPosts from '../../public/data/blog-posts.json';
 
 export const revalidate = 2592000; // 30 days
 
-const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || getSiteUrl();
-const DOMAIN = (() => {
+function getDomain() {
+  const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || getSiteUrl();
   try {
     const candidate = /^https?:\/\//i.test(rawSiteUrl) ? rawSiteUrl : `https://${rawSiteUrl}`;
     return new URL(candidate).origin;
   } catch {
     return 'https://nameverse.site';
   }
-})();
+}
+
+const DOMAIN = getDomain();
 const publishedDate = new Date().toISOString().split('T')[0];
 const homepageUrl = `${DOMAIN}/`;
 const ogImage = `${DOMAIN}/og-home.png`;
 
-const blogPostsPath = path.join(process.cwd(), 'public', 'data', 'blog-posts.json');
-let latestArticles = [];
-try {
-  const fileContents = fs.readFileSync(blogPostsPath, 'utf8');
-  const allPosts = JSON.parse(fileContents);
-  latestArticles = allPosts
-    .filter((post) => post.publishDate)
-    .sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate))
-    .slice(0, 6);
-} catch {
-  latestArticles = [];
-}
+const latestArticles = blogPosts
+  .filter((post) => post.publishDate)
+  .sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate))
+  .slice(0, 6);
 
 export const metadata = {
   title: validateMetaTitle('Baby Names, Meanings, Origins & Lucky Numbers | NameVerse'),

@@ -17,17 +17,17 @@
  * - Prevents caching of failed responses (no poisoned ISR cache)
  */
 
-const API_BASE = (process.env.NEXT_PUBLIC_API_BASE || 'https://name-meaning-site-backend.vercel.app').replace(/\/+$/, '');
-const ISR_TTL = 2592000; // 30 days
-
-const NAME_TAG = 'name-data';
-const slugTimestampCache = new Map();
-
-// Reuse the canonical slug builder so similar-name strings are normalized the
-// exact same way the rest of the app links to them.
+import { cache } from 'react';
 import { createSlug } from '../seo/url-builder';
 
 const VALID_RELIGIONS = ['islamic', 'christian', 'hindu'];
+const API_BASE = (process.env.NEXT_PUBLIC_API_BASE || 'https://name-meaning-site-backend.vercel.app').replace(/\/+$/, '');
+const ISR_TTL = 2592000; // 30 days
+const NAME_TAG = 'name-data';
+
+function getApiBase() {
+  return (process.env.NEXT_PUBLIC_API_BASE || 'https://name-meaning-site-backend.vercel.app').replace(/\/+$/, '');
+}
 
 function normalizeReligion(val) {
   if (!val) return 'islamic';
@@ -229,7 +229,7 @@ export async function serverFetchNamesWithAdvancedFilters(options = {}) {
  * Used by generateMetadata() and the page component
  * @returns {Promise<{ data: Object|null, notFound: boolean, error: boolean }>}
  */
-export async function serverFetchNameDetail(religion, slug) {
+export const serverFetchNameDetail = cache(async (religion, slug) => {
   if (!religion || !slug) {
     return { data: null, notFound: false, error: false };
   }
@@ -237,60 +237,39 @@ export async function serverFetchNameDetail(religion, slug) {
   const normalizedReligion = normalizeReligion(religion);
   const safeSlug = encodeURIComponent(String(slug).trim().toLowerCase());
 
-  // Use retry + 1-hour cache for name detail lookups.
-  // A single transient error must NOT cause a permanent 404.
-  // Tagged for on-demand revalidation via webhook.
   let result = await isrFetchWithRetry(
-    `${API_BASE}/api/v1/names/${normalizedReligion}/${safeSlug}`,
+    `${getApiBase()}/api/v1/names/${normalizedReligion}/${safeSlug}`,
     2,
     ISR_TTL,
     [NAME_TAG]
   );
 
-  // If explicit 404 from primary endpoint, return confirmed 404 (content doesn't exist)
   if (result.notFound) {
     return { data: null, notFound: true, error: false };
   }
 
-  // If no data but error, try fallback endpoint
   if (result.error || (!result.data?.success && !result.data?.data)) {
     const fallbackResult = await isrFetchWithRetry(
-      `${API_BASE}/api/names/${normalizedReligion}/${safeSlug}`,
+      `${getApiBase()}/api/names/${normalizedReligion}/${safeSlug}`,
       1,
       ISR_TTL,
       [NAME_TAG]
     );
 
-    // If fallback also returns explicit 404, propagate it
     if (fallbackResult.notFound) {
       return { data: null, notFound: true, error: false };
     }
 
-    // If fallback succeeded, use it
     if (fallbackResult.data?.success && fallbackResult.data?.data) {
       result = fallbackResult;
     } else {
-      // Both endpoints failed - return degraded state (no error, no data, no 404)
       return { data: null, notFound: false, error: false };
     }
   }
 
   if (result.data?.success && result.data?.data) {
     const nameData = result.data.data;
-    const updatedAt = nameData.updated_at || nameData.lastUpdated || null;
 
-    if (updatedAt) {
-      const cacheKey = `${normalizedReligion}:${safeSlug}`;
-      const cachedTimestamp = slugTimestampCache.get(cacheKey);
-      if (cachedTimestamp && cachedTimestamp !== updatedAt) {
-        console.log(`[cache-invalidate] Name ${cacheKey} updated at ${updatedAt} (was ${cachedTimestamp})`);
-        slugTimestampCache.set(cacheKey, updatedAt);
-      } else if (!cachedTimestamp) {
-        slugTimestampCache.set(cacheKey, updatedAt);
-      }
-    }
-
-    // Normalize religion (handle "Islam", "Christian", "Hindu" as well)
     if (nameData.religion) {
       const r = String(nameData.religion).toLowerCase();
       if (r === 'islamic' || r === 'muslim' || r === 'islam') nameData.religion = 'islamic';
@@ -300,9 +279,8 @@ export async function serverFetchNameDetail(religion, slug) {
     return { data: nameData, notFound: false, error: false };
   }
 
-  // Default: degraded state (no confirmed missing, don't return 404)
   return { data: null, notFound: false, error: false };
-}
+});
 
 /**
  * Check whether a single slug actually exists in the backend dataset.

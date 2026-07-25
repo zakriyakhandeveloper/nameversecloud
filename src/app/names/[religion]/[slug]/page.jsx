@@ -5,9 +5,14 @@ import { serverFetchNameDetail, serverFetchTrendingNames, serverFilterKnownSlugs
 import { sanitizeNameData } from '@/lib/utils/sanitizeNameData';
 import CulturalNameAnalysisCard from '@/components/name/NameDetail';
 import Script from 'next/script';
-import fs from 'fs';
-import path from 'path';
 import NativeBanner from '@/components/Ads/NativeBanner';
+import islamicBoyNames from '../../../../../public/data/islamic-boy-names.json';
+import islamicGirlNames from '../../../../../public/data/islamic-girl-names.json';
+import islamicMixedNames from '../../../../../public/islamic_names.json';
+import christianBoyNames from '../../../../../public/data/christian-boy-names.json';
+import christianGirlNames from '../../../../../public/data/christian-girl-names.json';
+import hinduBoyNames from '../../../../../public/data/hindu-boy-names.json';
+import hinduGirlNames from '../../../../../public/data/hindu-girl-names.json';
 
 const VALID_RELIGIONS = ['islamic', 'christian', 'hindu'];
 
@@ -18,143 +23,67 @@ export const dynamicParams = true;
 // on-demand revalidation via webhook forces an immediate refresh.
 export const revalidate = 2592000;
 
+const LOCAL_DATA_MAP = {
+  islamic: [islamicBoyNames, islamicGirlNames, islamicMixedNames],
+  christian: [christianBoyNames, christianGirlNames],
+  hindu: [hinduBoyNames, hinduGirlNames],
+};
+
 // Load local name data as fallback
 function loadLocalNameData(religion, slug) {
-  try {
-    const namesDataDir = path.join(process.cwd(), 'public', 'data');
-    const files = [
-      'islamic-boy-names.json',
-      'islamic-girl-names.json',
-      'christian-boy-names.json',
-      'christian-girl-names.json',
-      'hindu-boy-names.json',
-      'hindu-girl-names.json',
-    ];
-    
-    for (const file of files) {
-      try {
-        const raw = fs.readFileSync(path.join(namesDataDir, file), 'utf8');
-        const names = JSON.parse(raw);
-        const found = names.find(n => createSlug(n.name) === slug);
-        if (found) {
-          const cleanedName = String(found.name || '').trim().replace(/^\n+/, '');
-          return {
-            ...found,
-            name: cleanedName,
-            religion: religion,
-            lucky_number: found.luckyNumber,
-            short_meaning: found.meaning,
-          };
-        }
-      } catch { /* continue */ }
+  const files = LOCAL_DATA_MAP[religion] || [];
+  for (const names of files) {
+    const found = names.find((n) => createSlug(n.name) === slug);
+    if (found) {
+      const cleanedName = String(found.name || '').trim().replace(/^\n+/, '');
+      return {
+        ...found,
+        name: cleanedName,
+        religion: religion,
+        lucky_number: found.luckyNumber,
+        short_meaning: found.meaning,
+      };
     }
-  } catch { /* continue */ }
+  }
   return null;
 }
 
 function loadLocalNameList(religion, limit = 8, excludeSlug = '') {
-  try {
-    const namesDataDir = path.join(process.cwd(), 'public', 'data');
-    const files = [
-      'islamic-boy-names.json',
-      'islamic-girl-names.json',
-      'christian-boy-names.json',
-      'christian-girl-names.json',
-      'hindu-boy-names.json',
-      'hindu-girl-names.json',
-    ].filter(file => file.startsWith(`${religion}-`));
-
-    const seen = new Set();
-    const names = [];
-    for (const file of files) {
-      const raw = fs.readFileSync(path.join(namesDataDir, file), 'utf8');
-      const parsed = JSON.parse(raw);
-      for (const item of parsed) {
-        if (!item.name) continue;
-        const slug = createSlug(item.name);
-        if (!slug || slug === excludeSlug || seen.has(slug)) continue;
-        seen.add(slug);
-        names.push({ name: item.name, slug });
-        if (names.length >= limit) return names;
-      }
+  const files = LOCAL_DATA_MAP[religion] || [];
+  const seen = new Set();
+  const names = [];
+  for (const list of files) {
+    for (const item of list) {
+      if (!item.name) continue;
+      const itemSlug = createSlug(item.name);
+      if (!itemSlug || itemSlug === excludeSlug || seen.has(itemSlug)) continue;
+      seen.add(itemSlug);
+      names.push({ name: item.name, slug: itemSlug });
+      if (names.length >= limit) return names;
     }
-    return names;
-  } catch {
-    return [];
   }
+  return names;
 }
 
 export async function generateStaticParams() {
-  const namesDataDir = path.join(process.cwd(), 'public', 'data');
   const staticNames = [];
 
-  try {
-    const islamicBoysRaw = fs.readFileSync(path.join(namesDataDir, 'islamic-boy-names.json'), 'utf8');
-    JSON.parse(islamicBoysRaw).forEach((n) => {
+  const addNames = (list, religion) => {
+    list.forEach((n) => {
       if (n.name) {
         const slug = createSlug(n.name);
-        if (slug && isValidSlug(slug)) staticNames.push({ religion: 'islamic', slug });
+        if (slug && isValidSlug(slug)) staticNames.push({ religion, slug });
       }
     });
+  };
 
-    const islamicGirlsRaw = fs.readFileSync(path.join(namesDataDir, 'islamic-girl-names.json'), 'utf8');
-    JSON.parse(islamicGirlsRaw).forEach((n) => {
-      if (n.name) {
-        const slug = createSlug(n.name);
-        if (slug && isValidSlug(slug)) staticNames.push({ religion: 'islamic', slug });
-      }
-    });
-
-    try {
-      const islamicMixedRaw = fs.readFileSync(path.join(namesDataDir, 'islamic_names.json'), 'utf8');
-      JSON.parse(islamicMixedRaw).forEach((n) => {
-        if (n.name) {
-          const slug = createSlug(n.name);
-          if (slug && isValidSlug(slug)) staticNames.push({ religion: 'islamic', slug });
-        }
-      });
-    } catch { /* skip */ }
-
-    try {
-      const christianBoysRaw = fs.readFileSync(path.join(namesDataDir, 'christian-boy-names.json'), 'utf8');
-      JSON.parse(christianBoysRaw).forEach((n) => {
-        if (n.name) {
-          const slug = createSlug(n.name);
-          if (slug && isValidSlug(slug)) staticNames.push({ religion: 'christian', slug });
-        }
-      });
-    } catch { /* skip */ }
-
-    try {
-      const christianGirlsRaw = fs.readFileSync(path.join(namesDataDir, 'christian-girl-names.json'), 'utf8');
-      JSON.parse(christianGirlsRaw).forEach((n) => {
-        if (n.name) {
-          const slug = createSlug(n.name);
-          if (slug && isValidSlug(slug)) staticNames.push({ religion: 'christian', slug });
-        }
-      });
-    } catch { /* skip */ }
-
-    try {
-      const hinduBoysRaw = fs.readFileSync(path.join(namesDataDir, 'hindu-boy-names.json'), 'utf8');
-      JSON.parse(hinduBoysRaw).forEach((n) => {
-        if (n.name) {
-          const slug = createSlug(n.name);
-          if (slug && isValidSlug(slug)) staticNames.push({ religion: 'hindu', slug });
-        }
-      });
-    } catch { /* skip */ }
-
-    try {
-      const hinduGirlsRaw = fs.readFileSync(path.join(namesDataDir, 'hindu-girl-names.json'), 'utf8');
-      JSON.parse(hinduGirlsRaw).forEach((n) => {
-        if (n.name) {
-          const slug = createSlug(n.name);
-          if (slug && isValidSlug(slug)) staticNames.push({ religion: 'hindu', slug });
-        }
-      });
-    } catch { /* skip */ }
-  } catch { /* skip */ }
+  addNames(islamicBoyNames, 'islamic');
+  addNames(islamicGirlNames, 'islamic');
+  addNames(islamicMixedNames, 'islamic');
+  addNames(christianBoyNames, 'christian');
+  addNames(christianGirlNames, 'christian');
+  addNames(hinduBoyNames, 'hindu');
+  addNames(hinduGirlNames, 'hindu');
 
   const seen = new Set();
   const deduped = [];

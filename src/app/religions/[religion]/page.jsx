@@ -1,7 +1,16 @@
 export const revalidate = 2592000; // 30 days
 
-import fs from 'node:fs';
-import path from 'node:path';
+import meaningContent from '../../../../public/data/meaning-content.json';
+import islamicNames from '../../../../public/islamic_names.json';
+import christianNames from '../../../../public/christians_names.json';
+import hinduNames from '../../../../public/hindu_names.json';
+import islamicBoyNames from '../../../../public/data/islamic-boy-names.json';
+import islamicGirlNames from '../../../../public/data/islamic-girl-names.json';
+import christianBoyNames from '../../../../public/data/christian-boy-names.json';
+import christianGirlNames from '../../../../public/data/christian-girl-names.json';
+import hinduBoyNames from '../../../../public/data/hindu-boy-names.json';
+import hinduGirlNames from '../../../../public/data/hindu-girl-names.json';
+import blogPosts from '../../../../public/data/blog-posts.json';
 import Link from 'next/link';
 import Script from 'next/script';
 import { notFound } from 'next/navigation';
@@ -9,7 +18,6 @@ import { BookOpen, Globe, Sparkles, Library, Search } from 'lucide-react';
 import SitePage from '@/components/Layout/SitePage';
 import { validateMetaTitle, validateMetaDescription } from '@/lib/seo/meta-helpers';
 import { getSiteUrl } from '@/lib/seo/site';
-import { loadAllNames, loadBlogPosts, loadDetailedNames } from '@/lib/seo/sitemap-data.mjs';
 
 const RELIGIONS = ['islamic', 'christian', 'hindu'];
 const RELIGION_LABELS = { islamic: 'Islamic', christian: 'Christian', hindu: 'Hindu' };
@@ -18,11 +26,7 @@ const STATIC_CATEGORIES = ['modern', 'traditional', 'nature', 'religious', 'clas
 const STATIC_ORIGINS = ['arabic', 'persian', 'turkish', 'indian', 'english', 'other'];
 
 function readMeaningContent() {
-  try {
-    return JSON.parse(fs.readFileSync(path.join(process.cwd(), 'public', 'data', 'meaning-content.json'), 'utf8'));
-  } catch {
-    return [];
-  }
+  return meaningContent;
 }
 
 function normalizeReligion(value) {
@@ -30,11 +34,23 @@ function normalizeReligion(value) {
   return RELIGIONS.includes(r) ? r : null;
 }
 
+const DETAILED_DATA = {
+  islamic: [...islamicBoyNames, ...islamicGirlNames],
+  christian: [...christianBoyNames, ...christianGirlNames],
+  hindu: [...hinduBoyNames, ...hinduGirlNames],
+};
+
+const MIXED_DATA = {
+  islamic: islamicNames,
+  christian: christianNames,
+  hindu: hinduNames,
+};
+
 function findReligion(religion) {
   if (!RELIGIONS.includes(religion)) return null;
-  const allNames = loadAllNames().filter((name) => name.religion === religion);
-  const detailedNames = loadDetailedNames().filter((name) => name.religion === religion);
-  const posts = loadBlogPosts();
+  const allNames = MIXED_DATA[religion] || [];
+  const detailedNames = DETAILED_DATA[religion] || [];
+  const posts = blogPosts;
   return { religion, label: RELIGION_LABELS[religion], allNames, detailedNames, posts };
 }
 

@@ -1,15 +1,23 @@
 import { NextResponse } from 'next/server';
-import { writeSitemapFiles } from '@/lib/seo/sitemap-data.mjs';
-import fs from 'node:fs';
-import path from 'node:path';
+import manifest from '../../../public/seo-sitemap-manifest.json';
 
 export const dynamic = 'force-static';
 export const revalidate = 86400;
 
 export async function GET() {
-  const manifestFile = path.join(process.cwd(), 'public', 'seo-sitemap-manifest.json');
-  if (!fs.existsSync(manifestFile)) await writeSitemapFiles();
-  const xml = fs.readFileSync(path.join(process.cwd(), 'public', 'sitemap.xml'), 'utf8');
+  const today = new Date().toISOString().split('T')[0];
+  const urls = (manifest.sitemaps || [])
+    .map((loc) => `  <sitemap>
+    <loc>${loc}</loc>
+    <lastmod>${today}</lastmod>
+  </sitemap>`)
+    .join('\n');
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls}
+</sitemapindex>`;
+
   return new NextResponse(xml, {
     headers: {
       'Content-Type': 'application/xml; charset=utf-8',

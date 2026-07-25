@@ -1,5 +1,4 @@
-import { readFile } from 'fs/promises';
-import { join } from 'path';
+import blogPosts from '../../../public/data/blog-posts.json';
 
 const SITE_URL = (
   process.env.NEXT_PUBLIC_SITE_URL || 'https://nameverse.site'
@@ -29,50 +28,37 @@ function escapeXml(str) {
 }
 
 export async function GET() {
-  try {
-    const dataPath = join(process.cwd(), 'public', 'data', 'blog-posts.json');
-    const raw = await readFile(dataPath, 'utf8');
-    const posts = JSON.parse(raw);
+  const posts = blogPosts;
 
-    const urls = posts
-      .filter((post) => post && post.id)
-      .map((post) => {
-        const loc = `${SITE_URL}/blog/${post.id}`;
-        const lastmod =
-          post.lastUpdated ||
-          post.publishDate ||
-          new Date().toISOString().split('T')[0];
-        return `  <url>
+  const urls = posts
+    .filter((post) => post && post.id)
+    .map((post) => {
+      const loc = `${SITE_URL}/blog/${post.id}`;
+      const lastmod =
+        post.lastUpdated ||
+        post.publishDate ||
+        new Date().toISOString().split('T')[0];
+      return `  <url>
     <loc>${escapeXml(loc)}</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>`;
-      })
-      .join('\n');
+    })
+    .join('\n');
 
-    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls}
 </urlset>`;
 
-    return new Response(sitemap, {
-      headers: defaultHeaders,
-    });
-  } catch (error) {
-    console.error('Blog sitemap generation failed:', error);
-    return new Response('Blog sitemap not found', { status: 404 });
-  }
+  return new Response(sitemap, {
+    headers: defaultHeaders,
+  });
 }
 
 export async function HEAD() {
-  try {
-    const dataPath = join(process.cwd(), 'public', 'data', 'blog-posts.json');
-    await readFile(dataPath, 'utf8');
-    return new Response(null, {
-      headers: defaultHeaders,
-    });
-  } catch (error) {
-    return new Response(null, { status: 404 });
-  }
+  return new Response(null, {
+    headers: defaultHeaders,
+  });
 }

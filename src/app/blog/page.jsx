@@ -34,8 +34,7 @@ import {
   Filter,
   SortAsc,
 } from 'lucide-react';
-import { readFileSync } from 'fs';
-import { join } from 'path';
+import blogPosts from '../../../public/data/blog-posts.json';
 import StructuredData from '@/components/SEO/StructuredData';
 import BlogImageWithFallback from '@/components/Blog/BlogImageWithFallback';
 import { getSiteUrl } from '@/lib/seo/site';
@@ -44,10 +43,6 @@ import NativeBanner from '@/components/Ads/NativeBanner';
 
 // ISR with 365-day cache
 export const revalidate = 2592000; // 30 days
-
-const blogPostsData = JSON.parse(
-  readFileSync(join(process.cwd(), 'public', 'data', 'blog-posts.json'), 'utf8')
-);
 
 const blogFaq = [
   {
@@ -430,8 +425,8 @@ function FaqItem({ question, answer, index }) {
 // ─── MAIN PAGE ────────────────────────────────────────────────────────────
 
 export default function BlogPage() {
-  const featuredPosts = blogPostsData.filter((p) => p.featured);
-  const recentPosts = blogPostsData.filter((p) => !p.featured);
+  const featuredPosts = blogPosts.filter((p) => p.featured);
+  const recentPosts = blogPosts.filter((p) => !p.featured);
 
   return (
     <SitePage

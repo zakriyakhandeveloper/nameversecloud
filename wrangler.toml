@@ -1,0 +1,14 @@
+name = "nameverse"
+main = ".open-next/worker.js"
+compatibility_date = "2026-07-25"
+compatibility_flags = ["nodejs_compat"]
+
+[[routes]]
+pattern = "nameverse.site/*"
+zone_name = "nameverse"
+
+[site]
+bucket = ".open-next/assets"
+
+[cache]
+enabled = true

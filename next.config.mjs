@@ -21,6 +21,7 @@ const nextConfig = {
 
   // Image Optimization
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
@@ -96,6 +97,7 @@ const nextConfig = {
       {
         source: '/:path*',
         headers: [
+          { key: 'Cache-Control', value: 'public, max-age=0, stale-while-revalidate=2592000' },
           { key: 'X-DNS-Prefetch-Control', value: 'on' },
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'X-Frame-Options', value: 'SAMEORIGIN' },

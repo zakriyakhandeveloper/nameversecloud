@@ -6,7 +6,7 @@ import { Calendar, Clock, ChevronRight, BookOpen } from 'lucide-react';
 import SitePage from '@/components/Layout/SitePage';
 import { validateMetaDescription, validateMetaTitle } from '@/lib/seo/meta-helpers';
 import { getSiteUrl } from '@/lib/seo/site';
-import { loadBlogPosts } from '@/lib/seo/sitemap-data.mjs';
+import blogPosts from '../../../public/data/blog-posts.json';
 
 function formatDate(date) {
   return new Date(date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
@@ -20,7 +20,7 @@ export const metadata = {
 };
 
 export default async function StoriesPage() {
-  const posts = loadBlogPosts().sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate));
+  const posts = blogPosts.sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate));
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',

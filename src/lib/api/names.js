@@ -705,58 +705,7 @@ export async function fetchSimilarNames(religion, slug) {
   }
 }
 
-/**
- * In-memory cache for API responses to prevent duplicate calls
- * within the same ISR regeneration cycle
- */
-const requestCache = new Map();
-const CACHE_TTL = 60 * 1000; // 1 minute in-memory TTL
-
-/**
- * Cache wrapper for fetch operations - deduplicates requests
- * within the same render pass and caches across renders briefly
- */
-async function cachedFetch(cacheKey, fetchFn) {
-  const now = Date.now();
-  const cached = requestCache.get(cacheKey);
-  
-  if (cached && (now - cached.timestamp) < CACHE_TTL) {
-    return cached.data;
-  }
-  
-  // Check if there's already an in-flight request (deduplication)
-  if (cached && cached.promise) {
-    return cached.promise;
-  }
-  
-  const promise = fetchFn().then(data => {
-    requestCache.set(cacheKey, {
-      data,
-      timestamp: Date.now(),
-      promise: null,
-    });
-    return data;
-  }).catch(err => {
-    requestCache.delete(cacheKey);
-    throw err;
-  });
-  
-  // Store the promise so duplicate calls reuse it
-  requestCache.set(cacheKey, {
-    data: null,
-    timestamp: now,
-    promise,
-  });
-  
-  return promise;
-}
-
-/**
- * Clear the request cache (useful for development or manual invalidation)
- */
-export function clearRequestCache() {
-  requestCache.clear();
-}
+import { cache } from 'react';
 
 /**
  * Fetch name detail by religion and slug
@@ -766,44 +715,38 @@ export function clearRequestCache() {
  * @param {string} slug - Name slug
  * @returns {Promise<Object|null>} Name detail object or null
  */
-export async function fetchNameDetail(religion, slug) {
-   if (!religion || !slug) {
-     return null;
-   }
+export const fetchNameDetail = cache(async (religion, slug) => {
+  if (!religion || !slug) {
+    return null;
+  }
 
-   const cacheKey = `nameDetail:${religion}:${slug}`;
-   
-   return cachedFetch(cacheKey, async () => {
-     const normalizedReligion = normalizeReligion(religion);
-     const safeSlug = encodeURIComponent(String(slug).trim().toLowerCase());
-     let response = await apiClient.get(`/api/v1/names/${normalizedReligion}/${safeSlug}`);
-     let data = response.data;
+  const normalizedReligion = normalizeReligion(religion);
+  const safeSlug = encodeURIComponent(String(slug).trim().toLowerCase());
+  let response = await apiClient.get(`/api/v1/names/${normalizedReligion}/${safeSlug}`);
+  let data = response.data;
 
-     if ((!data || data.success === false || !data.data) && normalizedReligion && safeSlug) {
-       const fallbackResponse = await apiClient.get(`/api/names/${normalizedReligion}/${safeSlug}`);
-       data = fallbackResponse.data;
-     }
+  if ((!data || data.success === false || !data.data) && normalizedReligion && safeSlug) {
+    const fallbackResponse = await apiClient.get(`/api/names/${normalizedReligion}/${safeSlug}`);
+    data = fallbackResponse.data;
+  }
 
-     if (data && data.success && data.data) {
-       const nameData = data.data;
-       // Normalize religion to lowercase for consistent routing
-       if (nameData.religion) {
-         nameData.religion = nameData.religion.toLowerCase();
-         // Handle variations like "Islamic" -> "islamic", "Christianity" -> "christian"
-         if (nameData.religion === 'islamic' || nameData.religion === 'muslim') {
-           nameData.religion = 'islamic';
-         } else if (nameData.religion === 'christianity' || nameData.religion === 'christian') {
-           nameData.religion = 'christian';
-         } else if (nameData.religion === 'hinduism' || nameData.religion === 'hindu') {
-           nameData.religion = 'hindu';
-         }
-       }
-       return nameData;
-     }
+  if (data && data.success && data.data) {
+    const nameData = data.data;
+    if (nameData.religion) {
+      nameData.religion = nameData.religion.toLowerCase();
+      if (nameData.religion === 'islamic' || nameData.religion === 'muslim') {
+        nameData.religion = 'islamic';
+      } else if (nameData.religion === 'christianity' || nameData.religion === 'christian') {
+        nameData.religion = 'christian';
+      } else if (nameData.religion === 'hinduism' || nameData.religion === 'hindu') {
+        nameData.religion = 'hindu';
+      }
+    }
+    return nameData;
+  }
 
-     return null;
-   });
- }
+  return null;
+});
 
 /**
  * Search names across the database

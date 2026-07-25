@@ -1,0 +1,14 @@
+{
+  "generatedAt": "2026-07-21T03:21:24.011Z",
+  "totalUrls": 42831,
+  "sitemapCount": 7,
+  "sitemaps": [
+    "https://nameverse.site/sitemap-pages.xml",
+    "https://nameverse.site/sitemap-blog.xml",
+    "https://nameverse.site/sitemap-popularity.xml",
+    "https://nameverse.site/sitemap-letter.xml",
+    "https://nameverse.site/sitemap-origin.xml",
+    "https://nameverse.site/sitemap-category.xml",
+    "https://nameverse.site/sitemap-gender.xml"
+  ]
+}
