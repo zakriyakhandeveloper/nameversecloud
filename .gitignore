@@ -30,3 +30,5 @@ Thumbs.db
 *.bak
 *.swp
 *.swo
+
+.open-next/
