@@ -19,6 +19,7 @@
 
 import { cache } from 'react';
 import { createSlug } from '../seo/url-builder';
+import { findLocalNameData, getLocalNameList } from '../data/local-name-data.mjs';
 
 const VALID_RELIGIONS = ['islamic', 'christian', 'hindu'];
 const API_BASE = (process.env.NEXT_PUBLIC_API_BASE || 'https://name-meaning-site-backend.vercel.app').replace(/\/+$/, '');
@@ -235,7 +236,13 @@ export const serverFetchNameDetail = cache(async (religion, slug) => {
   }
 
   const normalizedReligion = normalizeReligion(religion);
-  const safeSlug = encodeURIComponent(String(slug).trim().toLowerCase());
+  const lookupSlug = String(slug).trim().toLowerCase();
+  const safeSlug = encodeURIComponent(lookupSlug);
+
+  const localNameData = findLocalNameData(normalizedReligion, lookupSlug);
+  if (localNameData) {
+    return { data: { ...localNameData, religion: normalizedReligion }, notFound: false, error: false };
+  }
 
   let result = await isrFetchWithRetry(
     `${getApiBase()}/api/v1/names/${normalizedReligion}/${safeSlug}`,
@@ -313,9 +320,16 @@ export async function serverFilterKnownSlugs(religion, names, limit = 12) {
     unique.push({ name, slug });
     if (unique.length >= limit) break;
   }
+
   const results = await Promise.all(
-    unique.map((item) => serverIsKnownSlug(religion, item.slug).then((ok) => (ok ? item.name : null)))
+    unique.map(async (item) => {
+      const localMatch = findLocalNameData(religion, item.slug);
+      if (localMatch) return item.name;
+      const ok = await serverIsKnownSlug(religion, item.slug);
+      return ok ? item.name : null;
+    })
   );
+
   return results.filter(Boolean);
 }
 
@@ -326,6 +340,17 @@ export async function serverFilterKnownSlugs(religion, names, limit = 12) {
 export async function serverFetchTrendingNames(options = {}) {
   const { religion = 'islamic', page = 1, limit = 20 } = options;
   const validReligion = VALID_RELIGIONS.includes(religion.toLowerCase()) ? religion.toLowerCase() : 'islamic';
+
+  const localNames = getLocalNameList(validReligion, limit, '');
+  if (localNames.length > 0 && page === 1) {
+    return {
+      data: localNames,
+      pagination: { page, limit, total: localNames.length, totalPages: 1 },
+      religion: validReligion,
+      success: true,
+      error: false,
+    };
+  }
 
   const result = await safeFetch(`${API_BASE}/api/names?religion=${validReligion}&page=${page}&limit=${limit}`);
 

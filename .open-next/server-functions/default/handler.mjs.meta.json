@@ -379,7 +379,7 @@
       "format": "cjs"
     },
     ".open-next/server-functions/default/node_modules/react/index.js": {
-      "bytes": 186,
+      "bytes": 178,
       "imports": [
         {
           "path": ".open-next/server-functions/default/node_modules/react/cjs/react.production.js",
@@ -777,7 +777,7 @@
       "format": "cjs"
     },
     ".open-next/server-functions/default/node_modules/next/dist/lib/find-pages-dir.js": {
-      "bytes": 1995,
+      "bytes": 1994,
       "imports": [
         {
           "path": "fs",
@@ -3752,18 +3752,8 @@
       "imports": [],
       "format": "cjs"
     },
-    ".open-next/server-functions/default/.next/server/app/_not-found/page_client-reference-manifest.js": {
-      "bytes": 15196,
-      "imports": [],
-      "format": "cjs"
-    },
     ".open-next/server-functions/default/.next/server/app/viral-names/page_client-reference-manifest.js": {
       "bytes": 15197,
-      "imports": [],
-      "format": "cjs"
-    },
-    ".open-next/server-functions/default/.next/server/app/_global-error/page_client-reference-manifest.js": {
-      "bytes": 5924,
       "imports": [],
       "format": "cjs"
     },
@@ -3817,13 +3807,13 @@
       "imports": [],
       "format": "cjs"
     },
-    ".open-next/server-functions/default/.next/server/app/popular-by-state/page_client-reference-manifest.js": {
-      "bytes": 15474,
+    ".open-next/server-functions/default/.next/server/app/popularity/page_client-reference-manifest.js": {
+      "bytes": 15456,
       "imports": [],
       "format": "cjs"
     },
-    ".open-next/server-functions/default/.next/server/app/popularity/page_client-reference-manifest.js": {
-      "bytes": 15456,
+    ".open-next/server-functions/default/.next/server/app/popular-by-state/page_client-reference-manifest.js": {
+      "bytes": 15474,
       "imports": [],
       "format": "cjs"
     },
@@ -3897,6 +3887,16 @@
       "imports": [],
       "format": "cjs"
     },
+    ".open-next/server-functions/default/.next/server/app/_not-found/page_client-reference-manifest.js": {
+      "bytes": 15196,
+      "imports": [],
+      "format": "cjs"
+    },
+    ".open-next/server-functions/default/.next/server/app/_global-error/page_client-reference-manifest.js": {
+      "bytes": 5924,
+      "imports": [],
+      "format": "cjs"
+    },
     ".open-next/server-functions/default/.next/server/app/search/[term]/page_client-reference-manifest.js": {
       "bytes": 16402,
       "imports": [],
@@ -3932,13 +3932,13 @@
       "imports": [],
       "format": "cjs"
     },
-    ".open-next/server-functions/default/.next/server/app/guides/[slug]/page_client-reference-manifest.js": {
-      "bytes": 16630,
+    ".open-next/server-functions/default/.next/server/app/guides/expert-naming-guide/page_client-reference-manifest.js": {
+      "bytes": 16669,
       "imports": [],
       "format": "cjs"
     },
-    ".open-next/server-functions/default/.next/server/app/guides/expert-naming-guide/page_client-reference-manifest.js": {
-      "bytes": 16669,
+    ".open-next/server-functions/default/.next/server/app/guides/[slug]/page_client-reference-manifest.js": {
+      "bytes": 16630,
       "imports": [],
       "format": "cjs"
     },
@@ -3967,13 +3967,13 @@
       "imports": [],
       "format": "cjs"
     },
-    ".open-next/server-functions/default/.next/server/app/names/[religion]/letter/[letter]/page_client-reference-manifest.js": {
-      "bytes": 15218,
+    ".open-next/server-functions/default/.next/server/app/names/religion/[religion]/[page]/page_client-reference-manifest.js": {
+      "bytes": 17403,
       "imports": [],
       "format": "cjs"
     },
-    ".open-next/server-functions/default/.next/server/app/names/religion/[religion]/[page]/page_client-reference-manifest.js": {
-      "bytes": 17403,
+    ".open-next/server-functions/default/.next/server/app/names/[religion]/letter/[letter]/page_client-reference-manifest.js": {
+      "bytes": 15218,
       "imports": [],
       "format": "cjs"
     },
@@ -3993,7 +3993,7 @@
       "format": "cjs"
     },
     ".open-next/server-functions/default/node_modules/next/dist/server/load-manifest.external.js": {
-      "bytes": 529086,
+      "bytes": 529003,
       "imports": [
         {
           "path": "path",
@@ -4018,247 +4018,247 @@
         {
           "path": ".open-next/server-functions/default/.next/server/app/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\page_client-reference-manifest.js"
-        },
-        {
-          "path": ".open-next/server-functions/default/.next/server/app/_not-found/page_client-reference-manifest.js",
-          "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\_not-found\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/viral-names/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\viral-names\\page_client-reference-manifest.js"
-        },
-        {
-          "path": ".open-next/server-functions/default/.next/server/app/_global-error/page_client-reference-manifest.js",
-          "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\_global-error\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/viral-names/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/unique-names/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\unique-names\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/unique-names/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/trending-names/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\trending-names\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/trending-names/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/top-baby-names-usa/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\top-baby-names-usa\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/top-baby-names-usa/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/terms/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\terms\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/terms/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/stories/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\stories\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/stories/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/sitemap.xml/route_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\sitemap.xml\\route_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/sitemap.xml/route_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/sitemap-blog.xml/route_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\sitemap-blog.xml\\route_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/sitemap-blog.xml/route_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/sibling-names/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\sibling-names\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/sibling-names/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/search/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\search\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/search/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/privacy/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\privacy\\page_client-reference-manifest.js"
-        },
-        {
-          "path": ".open-next/server-functions/default/.next/server/app/popular-by-state/page_client-reference-manifest.js",
-          "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\popular-by-state\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/privacy/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/popularity/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\popularity\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/popularity/page_client-reference-manifest.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/app/popular-by-state/page_client-reference-manifest.js",
+          "kind": "require-call",
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/popular-by-state/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/names-by-origin/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\names-by-origin\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/names-by-origin/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/names-by-meaning/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\names-by-meaning\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/names-by-meaning/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/names/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\names\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/names/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/name-meanings/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\name-meanings\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/name-meanings/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/my-names/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\my-names\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/my-names/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/languages/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\languages\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/languages/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/girl-names/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\girl-names\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/girl-names/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/feed.xml/route_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\feed.xml\\route_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/feed.xml/route_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/contact/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\contact\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/contact/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/boy-names/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\boy-names\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/boy-names/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/blog/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\blog\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/blog/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/biblical-names/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\biblical-names\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/biblical-names/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/advanced-search/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\advanced-search\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/advanced-search/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/about/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\about\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/about/page_client-reference-manifest.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/app/_not-found/page_client-reference-manifest.js",
+          "kind": "require-call",
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/_not-found/page_client-reference-manifest.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/app/_global-error/page_client-reference-manifest.js",
+          "kind": "require-call",
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/_global-error/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/search/[term]/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\search\\[term]\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/search/[term]/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/religions/[religion]/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\religions\\[religion]\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/religions/[religion]/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/meaning/[slug]/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\meaning\\[slug]\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/meaning/[slug]/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/islamic/girl-names/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\islamic\\girl-names\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/islamic/girl-names/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/islamic/boy-names/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\islamic\\boy-names\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/islamic/boy-names/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/hindu/girl-names/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\hindu\\girl-names\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/hindu/girl-names/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/hindu/boy-names/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\hindu\\boy-names\\page_client-reference-manifest.js"
-        },
-        {
-          "path": ".open-next/server-functions/default/.next/server/app/guides/[slug]/page_client-reference-manifest.js",
-          "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\guides\\[slug]\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/hindu/boy-names/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/guides/expert-naming-guide/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\guides\\expert-naming-guide\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/guides/expert-naming-guide/page_client-reference-manifest.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/app/guides/[slug]/page_client-reference-manifest.js",
+          "kind": "require-call",
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/guides/[slug]/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/christian/girl-names/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\christian\\girl-names\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/christian/girl-names/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/christian/boy-names/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\christian\\boy-names\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/christian/boy-names/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/blog/[slug]/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\blog\\[slug]\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/blog/[slug]/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/api/revalidate/route_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\api\\revalidate\\route_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/api/revalidate/route_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/names/[religion]/[slug]/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\names\\[religion]\\[slug]\\page_client-reference-manifest.js"
-        },
-        {
-          "path": ".open-next/server-functions/default/.next/server/app/names/[religion]/letter/[letter]/page_client-reference-manifest.js",
-          "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\names\\[religion]\\letter\\[letter]\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/names/[religion]/[slug]/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/names/religion/[religion]/[page]/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\names\\religion\\[religion]\\[page]\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/names/religion/[religion]/[page]/page_client-reference-manifest.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/app/names/[religion]/letter/[letter]/page_client-reference-manifest.js",
+          "kind": "require-call",
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/names/[religion]/letter/[letter]/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/names/[religion]/origin/[origin]/[page]/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\names\\[religion]\\origin\\[origin]\\[page]\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/names/[religion]/origin/[origin]/[page]/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/names/[religion]/letter/[letter]/[page]/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\names\\[religion]\\letter\\[letter]\\[page]\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/names/[religion]/letter/[letter]/[page]/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/names/[religion]/categories/[category]/[page]/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\names\\[religion]\\categories\\[category]\\[page]\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/names/[religion]/categories/[category]/[page]/page_client-reference-manifest.js"
         }
       ],
       "format": "cjs"
@@ -4633,7 +4633,7 @@
       "format": "cjs"
     },
     ".open-next/server-functions/default/.next/server/app/names/[religion]/[slug]/page.js": {
-      "bytes": 1610,
+      "bytes": 1660,
       "imports": [
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[turbopack]_runtime.js",
@@ -4644,7 +4644,7 @@
       "format": "cjs"
     },
     ".open-next/server-functions/default/.next/server/app/names/[religion]/categories/[category]/[page]/page.js": {
-      "bytes": 1492,
+      "bytes": 1741,
       "imports": [
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[turbopack]_runtime.js",
@@ -4655,7 +4655,7 @@
       "format": "cjs"
     },
     ".open-next/server-functions/default/.next/server/app/names/[religion]/letter/[letter]/[page]/page.js": {
-      "bytes": 1474,
+      "bytes": 1670,
       "imports": [
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[turbopack]_runtime.js",
@@ -4677,7 +4677,7 @@
       "format": "cjs"
     },
     ".open-next/server-functions/default/.next/server/app/names/[religion]/origin/[origin]/[page]/page.js": {
-      "bytes": 1513,
+      "bytes": 1723,
       "imports": [
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[turbopack]_runtime.js",
@@ -4699,7 +4699,7 @@
       "format": "cjs"
     },
     ".open-next/server-functions/default/.next/server/app/names/religion/[religion]/[page]/page.js": {
-      "bytes": 1398,
+      "bytes": 1644,
       "imports": [
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[turbopack]_runtime.js",
@@ -4754,7 +4754,7 @@
       "format": "cjs"
     },
     ".open-next/server-functions/default/.next/server/app/religions/[religion]/page.js": {
-      "bytes": 1618,
+      "bytes": 1668,
       "imports": [
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[turbopack]_runtime.js",
@@ -4765,7 +4765,7 @@
       "format": "cjs"
     },
     ".open-next/server-functions/default/.next/server/app/search/[term]/page.js": {
-      "bytes": 1267,
+      "bytes": 1477,
       "imports": [
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[turbopack]_runtime.js",
@@ -4886,7 +4886,7 @@
       "format": "cjs"
     },
     ".open-next/server-functions/default/node_modules/next/dist/server/require.js": {
-      "bytes": 15150,
+      "bytes": 15017,
       "imports": [
         {
           "path": "path",
@@ -4936,252 +4936,252 @@
         {
           "path": ".open-next/server-functions/default/.next/server/app/_global-error/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\_global-error\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/_global-error/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/_not-found/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\_not-found\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/_not-found/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/about/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\about\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/about/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/advanced-search/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\advanced-search\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/advanced-search/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/api/revalidate/route.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\api\\revalidate\\route.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/api/revalidate/route.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/biblical-names/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\biblical-names\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/biblical-names/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/blog/[slug]/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\blog\\[slug]\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/blog/[slug]/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/blog/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\blog\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/blog/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/boy-names/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\boy-names\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/boy-names/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/christian/boy-names/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\christian\\boy-names\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/christian/boy-names/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/christian/girl-names/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\christian\\girl-names\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/christian/girl-names/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/contact/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\contact\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/contact/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/favicon.ico/route.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\favicon.ico\\route.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/favicon.ico/route.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/feed.xml/route.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\feed.xml\\route.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/feed.xml/route.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/girl-names/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\girl-names\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/girl-names/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/guides/[slug]/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\guides\\[slug]\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/guides/[slug]/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/guides/expert-naming-guide/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\guides\\expert-naming-guide\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/guides/expert-naming-guide/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/hindu/boy-names/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\hindu\\boy-names\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/hindu/boy-names/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/hindu/girl-names/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\hindu\\girl-names\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/hindu/girl-names/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/islamic/boy-names/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\islamic\\boy-names\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/islamic/boy-names/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/islamic/girl-names/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\islamic\\girl-names\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/islamic/girl-names/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/languages/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\languages\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/languages/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/meaning/[slug]/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\meaning\\[slug]\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/meaning/[slug]/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/my-names/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\my-names\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/my-names/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/name-meanings/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\name-meanings\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/name-meanings/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/names-by-meaning/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\names-by-meaning\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/names-by-meaning/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/names-by-origin/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\names-by-origin\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/names-by-origin/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/names/[religion]/[slug]/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\names\\[religion]\\[slug]\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/names/[religion]/[slug]/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/names/[religion]/categories/[category]/[page]/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\names\\[religion]\\categories\\[category]\\[page]\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/names/[religion]/categories/[category]/[page]/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/names/[religion]/letter/[letter]/[page]/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\names\\[religion]\\letter\\[letter]\\[page]\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/names/[religion]/letter/[letter]/[page]/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/names/[religion]/letter/[letter]/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\names\\[religion]\\letter\\[letter]\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/names/[religion]/letter/[letter]/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/names/[religion]/origin/[origin]/[page]/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\names\\[religion]\\origin\\[origin]\\[page]\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/names/[religion]/origin/[origin]/[page]/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/names/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\names\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/names/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/names/religion/[religion]/[page]/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\names\\religion\\[religion]\\[page]\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/names/religion/[religion]/[page]/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/popular-by-state/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\popular-by-state\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/popular-by-state/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/popularity/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\popularity\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/popularity/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/privacy/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\privacy\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/privacy/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/religions/[religion]/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\religions\\[religion]\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/religions/[religion]/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/search/[term]/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\search\\[term]\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/search/[term]/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/search/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\search\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/search/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/sibling-names/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\sibling-names\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/sibling-names/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/sitemap-blog.xml/route.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\sitemap-blog.xml\\route.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/sitemap-blog.xml/route.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/sitemap.xml/route.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\sitemap.xml\\route.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/sitemap.xml/route.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/stories/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\stories\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/stories/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/terms/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\terms\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/terms/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/top-baby-names-usa/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\top-baby-names-usa\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/top-baby-names-usa/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/trending-names/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\trending-names\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/trending-names/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/unique-names/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\unique-names\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/unique-names/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/viral-names/page.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\viral-names\\page.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/viral-names/page.js"
         }
       ],
       "format": "cjs"
@@ -5891,7 +5891,7 @@
       "format": "cjs"
     },
     "node_modules/next/dist/server/load-manifest.external.js": {
-      "bytes": 529086,
+      "bytes": 529003,
       "imports": [
         {
           "path": "path",
@@ -5916,247 +5916,247 @@
         {
           "path": ".open-next/server-functions/default/.next/server/app/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\page_client-reference-manifest.js"
-        },
-        {
-          "path": ".open-next/server-functions/default/.next/server/app/_not-found/page_client-reference-manifest.js",
-          "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\_not-found\\page_client-reference-manifest.js"
-        },
-        {
-          "path": ".open-next/server-functions/default/.next/server/app/_global-error/page_client-reference-manifest.js",
-          "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\_global-error\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/viral-names/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\viral-names\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/viral-names/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/unique-names/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\unique-names\\page_client-reference-manifest.js"
-        },
-        {
-          "path": ".open-next/server-functions/default/.next/server/app/top-baby-names-usa/page_client-reference-manifest.js",
-          "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\top-baby-names-usa\\page_client-reference-manifest.js"
-        },
-        {
-          "path": ".open-next/server-functions/default/.next/server/app/terms/page_client-reference-manifest.js",
-          "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\terms\\page_client-reference-manifest.js"
-        },
-        {
-          "path": ".open-next/server-functions/default/.next/server/app/stories/page_client-reference-manifest.js",
-          "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\stories\\page_client-reference-manifest.js"
-        },
-        {
-          "path": ".open-next/server-functions/default/.next/server/app/sitemap.xml/route_client-reference-manifest.js",
-          "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\sitemap.xml\\route_client-reference-manifest.js"
-        },
-        {
-          "path": ".open-next/server-functions/default/.next/server/app/sitemap-blog.xml/route_client-reference-manifest.js",
-          "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\sitemap-blog.xml\\route_client-reference-manifest.js"
-        },
-        {
-          "path": ".open-next/server-functions/default/.next/server/app/sibling-names/page_client-reference-manifest.js",
-          "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\sibling-names\\page_client-reference-manifest.js"
-        },
-        {
-          "path": ".open-next/server-functions/default/.next/server/app/search/page_client-reference-manifest.js",
-          "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\search\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/unique-names/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/trending-names/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\trending-names\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/trending-names/page_client-reference-manifest.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/app/top-baby-names-usa/page_client-reference-manifest.js",
+          "kind": "require-call",
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/top-baby-names-usa/page_client-reference-manifest.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/app/terms/page_client-reference-manifest.js",
+          "kind": "require-call",
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/terms/page_client-reference-manifest.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/app/stories/page_client-reference-manifest.js",
+          "kind": "require-call",
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/stories/page_client-reference-manifest.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/app/sitemap.xml/route_client-reference-manifest.js",
+          "kind": "require-call",
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/sitemap.xml/route_client-reference-manifest.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/app/sitemap-blog.xml/route_client-reference-manifest.js",
+          "kind": "require-call",
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/sitemap-blog.xml/route_client-reference-manifest.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/app/sibling-names/page_client-reference-manifest.js",
+          "kind": "require-call",
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/sibling-names/page_client-reference-manifest.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/app/search/page_client-reference-manifest.js",
+          "kind": "require-call",
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/search/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/privacy/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\privacy\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/privacy/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/popularity/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\popularity\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/popularity/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/popular-by-state/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\popular-by-state\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/popular-by-state/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/names-by-origin/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\names-by-origin\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/names-by-origin/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/names-by-meaning/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\names-by-meaning\\page_client-reference-manifest.js"
-        },
-        {
-          "path": ".open-next/server-functions/default/.next/server/app/name-meanings/page_client-reference-manifest.js",
-          "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\name-meanings\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/names-by-meaning/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/names/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\names\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/names/page_client-reference-manifest.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/app/name-meanings/page_client-reference-manifest.js",
+          "kind": "require-call",
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/name-meanings/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/my-names/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\my-names\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/my-names/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/languages/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\languages\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/languages/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/girl-names/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\girl-names\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/girl-names/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/feed.xml/route_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\feed.xml\\route_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/feed.xml/route_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/contact/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\contact\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/contact/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/boy-names/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\boy-names\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/boy-names/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/blog/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\blog\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/blog/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/biblical-names/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\biblical-names\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/biblical-names/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/advanced-search/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\advanced-search\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/advanced-search/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/about/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\about\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/about/page_client-reference-manifest.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/app/_not-found/page_client-reference-manifest.js",
+          "kind": "require-call",
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/_not-found/page_client-reference-manifest.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/app/_global-error/page_client-reference-manifest.js",
+          "kind": "require-call",
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/_global-error/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/search/[term]/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\search\\[term]\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/search/[term]/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/religions/[religion]/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\religions\\[religion]\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/religions/[religion]/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/meaning/[slug]/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\meaning\\[slug]\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/meaning/[slug]/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/islamic/girl-names/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\islamic\\girl-names\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/islamic/girl-names/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/islamic/boy-names/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\islamic\\boy-names\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/islamic/boy-names/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/hindu/girl-names/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\hindu\\girl-names\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/hindu/girl-names/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/hindu/boy-names/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\hindu\\boy-names\\page_client-reference-manifest.js"
-        },
-        {
-          "path": ".open-next/server-functions/default/.next/server/app/guides/[slug]/page_client-reference-manifest.js",
-          "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\guides\\[slug]\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/hindu/boy-names/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/guides/expert-naming-guide/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\guides\\expert-naming-guide\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/guides/expert-naming-guide/page_client-reference-manifest.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/app/guides/[slug]/page_client-reference-manifest.js",
+          "kind": "require-call",
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/guides/[slug]/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/christian/girl-names/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\christian\\girl-names\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/christian/girl-names/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/christian/boy-names/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\christian\\boy-names\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/christian/boy-names/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/blog/[slug]/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\blog\\[slug]\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/blog/[slug]/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/api/revalidate/route_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\api\\revalidate\\route_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/api/revalidate/route_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/names/[religion]/[slug]/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\names\\[religion]\\[slug]\\page_client-reference-manifest.js"
-        },
-        {
-          "path": ".open-next/server-functions/default/.next/server/app/names/[religion]/letter/[letter]/page_client-reference-manifest.js",
-          "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\names\\[religion]\\letter\\[letter]\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/names/[religion]/[slug]/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/names/religion/[religion]/[page]/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\names\\religion\\[religion]\\[page]\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/names/religion/[religion]/[page]/page_client-reference-manifest.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/app/names/[religion]/letter/[letter]/page_client-reference-manifest.js",
+          "kind": "require-call",
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/names/[religion]/letter/[letter]/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/names/[religion]/origin/[origin]/[page]/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\names\\[religion]\\origin\\[origin]\\[page]\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/names/[religion]/origin/[origin]/[page]/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/names/[religion]/letter/[letter]/[page]/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\names\\[religion]\\letter\\[letter]\\[page]\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/names/[religion]/letter/[letter]/[page]/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/names/[religion]/categories/[category]/[page]/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\code\\nameverse\\.open-next\\server-functions\\default\\.next\\server\\app\\names\\[religion]\\categories\\[category]\\[page]\\page_client-reference-manifest.js"
+          "original": "/workspaces/NameVerseCloud/.open-next/server-functions/default/.next/server/app/names/[religion]/categories/[category]/[page]/page_client-reference-manifest.js"
         }
       ],
       "format": "cjs"
@@ -8972,7 +8972,7 @@
       "format": "esm"
     },
     ".open-next/server-functions/default/index.mjs": {
-      "bytes": 473102,
+      "bytes": 473116,
       "imports": [
         {
           "path": "node:module",
@@ -9982,7 +9982,7 @@
           "bytesInOutput": 12773
         },
         ".open-next/server-functions/default/node_modules/next/dist/lib/find-pages-dir.js": {
-          "bytesInOutput": 2139
+          "bytesInOutput": 2138
         },
         ".open-next/server-functions/default/node_modules/next/dist/server/web/spec-extension/adapters/reflect.js": {
           "bytesInOutput": 975
@@ -10530,14 +10530,8 @@
         ".open-next/server-functions/default/.next/server/app/page_client-reference-manifest.js": {
           "bytesInOutput": 17848
         },
-        ".open-next/server-functions/default/.next/server/app/_not-found/page_client-reference-manifest.js": {
-          "bytesInOutput": 16547
-        },
         ".open-next/server-functions/default/.next/server/app/viral-names/page_client-reference-manifest.js": {
           "bytesInOutput": 16549
-        },
-        ".open-next/server-functions/default/.next/server/app/_global-error/page_client-reference-manifest.js": {
-          "bytesInOutput": 6563
         },
         ".open-next/server-functions/default/.next/server/app/unique-names/page_client-reference-manifest.js": {
           "bytesInOutput": 16831
@@ -10561,19 +10555,19 @@
           "bytesInOutput": 531
         },
         ".open-next/server-functions/default/.next/server/app/sibling-names/page_client-reference-manifest.js": {
-          "bytesInOutput": 16836
+          "bytesInOutput": 16835
         },
         ".open-next/server-functions/default/.next/server/app/search/page_client-reference-manifest.js": {
-          "bytesInOutput": 17706
+          "bytesInOutput": 17705
         },
         ".open-next/server-functions/default/.next/server/app/privacy/page_client-reference-manifest.js": {
           "bytesInOutput": 16812
         },
-        ".open-next/server-functions/default/.next/server/app/popular-by-state/page_client-reference-manifest.js": {
-          "bytesInOutput": 16848
-        },
         ".open-next/server-functions/default/.next/server/app/popularity/page_client-reference-manifest.js": {
           "bytesInOutput": 16824
+        },
+        ".open-next/server-functions/default/.next/server/app/popular-by-state/page_client-reference-manifest.js": {
+          "bytesInOutput": 16848
         },
         ".open-next/server-functions/default/.next/server/app/names-by-origin/page_client-reference-manifest.js": {
           "bytesInOutput": 16844
@@ -10617,6 +10611,12 @@
         ".open-next/server-functions/default/.next/server/app/about/page_client-reference-manifest.js": {
           "bytesInOutput": 16804
         },
+        ".open-next/server-functions/default/.next/server/app/_not-found/page_client-reference-manifest.js": {
+          "bytesInOutput": 16548
+        },
+        ".open-next/server-functions/default/.next/server/app/_global-error/page_client-reference-manifest.js": {
+          "bytesInOutput": 6564
+        },
         ".open-next/server-functions/default/.next/server/app/search/[term]/page_client-reference-manifest.js": {
           "bytesInOutput": 17834
         },
@@ -10638,11 +10638,11 @@
         ".open-next/server-functions/default/.next/server/app/hindu/boy-names/page_client-reference-manifest.js": {
           "bytesInOutput": 16844
         },
-        ".open-next/server-functions/default/.next/server/app/guides/[slug]/page_client-reference-manifest.js": {
-          "bytesInOutput": 18066
-        },
         ".open-next/server-functions/default/.next/server/app/guides/expert-naming-guide/page_client-reference-manifest.js": {
           "bytesInOutput": 18118
+        },
+        ".open-next/server-functions/default/.next/server/app/guides/[slug]/page_client-reference-manifest.js": {
+          "bytesInOutput": 18066
         },
         ".open-next/server-functions/default/.next/server/app/christian/girl-names/page_client-reference-manifest.js": {
           "bytesInOutput": 16864
@@ -10659,11 +10659,11 @@
         ".open-next/server-functions/default/.next/server/app/names/[religion]/[slug]/page_client-reference-manifest.js": {
           "bytesInOutput": 19047
         },
-        ".open-next/server-functions/default/.next/server/app/names/[religion]/letter/[letter]/page_client-reference-manifest.js": {
-          "bytesInOutput": 16592
-        },
         ".open-next/server-functions/default/.next/server/app/names/religion/[religion]/[page]/page_client-reference-manifest.js": {
           "bytesInOutput": 18916
+        },
+        ".open-next/server-functions/default/.next/server/app/names/[religion]/letter/[letter]/page_client-reference-manifest.js": {
+          "bytesInOutput": 16592
         },
         ".open-next/server-functions/default/.next/server/app/names/[religion]/origin/[origin]/[page]/page_client-reference-manifest.js": {
           "bytesInOutput": 16940
@@ -10675,7 +10675,7 @@
           "bytesInOutput": 18184
         },
         ".open-next/server-functions/default/node_modules/next/dist/server/load-manifest.external.js": {
-          "bytesInOutput": 659351
+          "bytesInOutput": 659349
         },
         ".open-next/server-functions/default/.next/server/chunks/ssr/[turbopack]_runtime.js": {
           "bytesInOutput": 25015
@@ -10765,25 +10765,25 @@
           "bytesInOutput": 1480
         },
         ".open-next/server-functions/default/.next/server/app/names/[religion]/[slug]/page.js": {
-          "bytesInOutput": 1855
+          "bytesInOutput": 1910
         },
         ".open-next/server-functions/default/.next/server/app/names/[religion]/categories/[category]/[page]/page.js": {
-          "bytesInOutput": 1738
+          "bytesInOutput": 2007
         },
         ".open-next/server-functions/default/.next/server/app/names/[religion]/letter/[letter]/[page]/page.js": {
-          "bytesInOutput": 1714
+          "bytesInOutput": 1930
         },
         ".open-next/server-functions/default/.next/server/app/names/[religion]/letter/[letter]/page.js": {
           "bytesInOutput": 1587
         },
         ".open-next/server-functions/default/.next/server/app/names/[religion]/origin/[origin]/[page]/page.js": {
-          "bytesInOutput": 1758
+          "bytesInOutput": 1983
         },
         ".open-next/server-functions/default/.next/server/app/names/page.js": {
           "bytesInOutput": 1440
         },
         ".open-next/server-functions/default/.next/server/app/names/religion/[religion]/[page]/page.js": {
-          "bytesInOutput": 1634
+          "bytesInOutput": 1900
         },
         ".open-next/server-functions/default/.next/server/app/page.js": {
           "bytesInOutput": 1436
@@ -10798,10 +10798,10 @@
           "bytesInOutput": 1456
         },
         ".open-next/server-functions/default/.next/server/app/religions/[religion]/page.js": {
-          "bytesInOutput": 1863
+          "bytesInOutput": 1918
         },
         ".open-next/server-functions/default/.next/server/app/search/[term]/page.js": {
-          "bytesInOutput": 1480
+          "bytesInOutput": 1705
         },
         ".open-next/server-functions/default/.next/server/app/search/page.js": {
           "bytesInOutput": 1375
@@ -10834,7 +10834,7 @@
           "bytesInOutput": 1456
         },
         ".open-next/server-functions/default/node_modules/next/dist/server/require.js": {
-          "bytesInOutput": 10685
+          "bytesInOutput": 10634
         },
         ".open-next/server-functions/default/node_modules/next/dist/lib/interop-default.js": {
           "bytesInOutput": 470
@@ -10978,7 +10978,7 @@
           "bytesInOutput": 811
         },
         "node_modules/next/dist/server/load-manifest.external.js": {
-          "bytesInOutput": 659317
+          "bytesInOutput": 659315
         },
         "node_modules/next/dist/server/runtime-reacts.external.js": {
           "bytesInOutput": 1078
@@ -11410,10 +11410,10 @@
           "bytesInOutput": 1709
         },
         ".open-next/server-functions/default/index.mjs": {
-          "bytesInOutput": 470353
+          "bytesInOutput": 470367
         }
       },
-      "bytes": 7398153
+      "bytes": 7399422
     }
   }
 }

@@ -6,84 +6,26 @@ import { sanitizeNameData } from '@/lib/utils/sanitizeNameData';
 import CulturalNameAnalysisCard from '@/components/name/NameDetail';
 import Script from 'next/script';
 import NativeBanner from '@/components/Ads/NativeBanner';
-import islamicBoyNames from '../../../../../public/data/islamic-boy-names.json';
-import islamicGirlNames from '../../../../../public/data/islamic-girl-names.json';
-import islamicMixedNames from '../../../../../public/islamic_names.json';
-import christianBoyNames from '../../../../../public/data/christian-boy-names.json';
-import christianGirlNames from '../../../../../public/data/christian-girl-names.json';
-import hinduBoyNames from '../../../../../public/data/hindu-boy-names.json';
-import hinduGirlNames from '../../../../../public/data/hindu-girl-names.json';
+import { findLocalNameData, getLocalNameList, getAllLocalNameSlugs } from '@/lib/data/local-name-data.mjs';
 
 const VALID_RELIGIONS = ['islamic', 'christian', 'hindu'];
-
-// Allow dynamic slugs beyond generateStaticParams()
 export const dynamicParams = true;
 
 // 30-day ISR: name pages stay cached for 30 days unless
 // on-demand revalidation via webhook forces an immediate refresh.
 export const revalidate = 2592000;
 
-const LOCAL_DATA_MAP = {
-  islamic: [islamicBoyNames, islamicGirlNames, islamicMixedNames],
-  christian: [christianBoyNames, christianGirlNames],
-  hindu: [hinduBoyNames, hinduGirlNames],
-};
-
-// Load local name data as fallback
-function loadLocalNameData(religion, slug) {
-  const files = LOCAL_DATA_MAP[religion] || [];
-  for (const names of files) {
-    const found = names.find((n) => createSlug(n.name) === slug);
-    if (found) {
-      const cleanedName = String(found.name || '').trim().replace(/^\n+/, '');
-      return {
-        ...found,
-        name: cleanedName,
-        religion: religion,
-        lucky_number: found.luckyNumber,
-        short_meaning: found.meaning,
-      };
-    }
-  }
-  return null;
-}
-
-function loadLocalNameList(religion, limit = 8, excludeSlug = '') {
-  const files = LOCAL_DATA_MAP[religion] || [];
-  const seen = new Set();
-  const names = [];
-  for (const list of files) {
-    for (const item of list) {
-      if (!item.name) continue;
-      const itemSlug = createSlug(item.name);
-      if (!itemSlug || itemSlug === excludeSlug || seen.has(itemSlug)) continue;
-      seen.add(itemSlug);
-      names.push({ name: item.name, slug: itemSlug });
-      if (names.length >= limit) return names;
-    }
-  }
-  return names;
-}
-
 export async function generateStaticParams() {
   const staticNames = [];
-
-  const addNames = (list, religion) => {
-    list.forEach((n) => {
-      if (n.name) {
-        const slug = createSlug(n.name);
-        if (slug && isValidSlug(slug)) staticNames.push({ religion, slug });
-      }
-    });
+  const addSlugs = (slugs, religion) => {
+    for (const s of slugs) {
+      if (s && isValidSlug(s)) staticNames.push({ religion, slug: s });
+    }
   };
 
-  addNames(islamicBoyNames, 'islamic');
-  addNames(islamicGirlNames, 'islamic');
-  addNames(islamicMixedNames, 'islamic');
-  addNames(christianBoyNames, 'christian');
-  addNames(christianGirlNames, 'christian');
-  addNames(hinduBoyNames, 'hindu');
-  addNames(hinduGirlNames, 'hindu');
+  addSlugs(getAllLocalNameSlugs('islamic'), 'islamic');
+  addSlugs(getAllLocalNameSlugs('christian'), 'christian');
+  addSlugs(getAllLocalNameSlugs('hindu'), 'hindu');
 
   const seen = new Set();
   const deduped = [];
@@ -150,7 +92,7 @@ export async function generateMetadata({ params }) {
   
   // Fallback to local data if API failed (degraded state)
   if (!nameData) {
-    nameData = loadLocalNameData(religion, slug);
+    nameData = findLocalNameData(religion, slug);
   }
 
   // Clean name field before metadata generation
@@ -199,7 +141,7 @@ export default async function NameDetailPage({ params }) {
   
   // Fallback to local data if API failed (degraded state)
   if (!nameData) {
-    nameData = loadLocalNameData(religion, slug);
+    nameData = findLocalNameData(religion, slug);
   }
 
   // If still no data, check if this is a truly missing entry or degraded state
@@ -268,7 +210,7 @@ export default async function NameDetailPage({ params }) {
     .filter((item) => item.name && item.slug && item.slug.length >= 2 && isValidSlug(item.slug));
   const fallbackTrendingNames = apiTrendingNames.length > 0
     ? apiTrendingNames
-    : loadLocalNameList(religion, 8, slug);
+    : getLocalNameList(religion, 8, slug);
   const trendingNamesSource = apiTrendingNames.length > 0 && !trendingResult.error ? 'trending' : 'suggested';
 
   return (

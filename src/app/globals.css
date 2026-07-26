@@ -2,10 +2,17 @@
 @import "tw-animate-css";
 
 /* Scope Tailwind v4 content scanning to the app source only. Without this,
-   Tailwind auto-detects the whole project (incl. node_modules / public data),
-   emitting the full ~160KB utility set instead of only used classes.
-   Paths are relative to this file (src/app/), so ../ covers src/ and project root. */
-@source "../**/*.{js,jsx,ts,tsx,mdx}";
+   Tailwind auto-detects the whole project (incl. generated .next artifacts),
+   which can pull in classes from build output and fail on missing assets.
+   Paths are relative to this file (src/app/). */
+@source "../app/**/*.{js,jsx,ts,tsx,mdx}";
+@source "../components/**/*.{js,jsx,ts,tsx,mdx}";
+@source "../lib/**/*.{js,jsx,ts,tsx,mdx}";
+@source "../contexts/**/*.{js,jsx,ts,tsx,mdx}";
+@source "../hooks/**/*.{js,jsx,ts,tsx,mdx}";
+@source "../config/**/*.{js,jsx,ts,tsx,mdx}";
+@source "../store/**/*.{js,jsx,ts,tsx,mdx}";
+@source "../types/**/*.{js,jsx,ts,tsx,mdx}";
 @source "../../public/data/**/*.json";
 
 /* ═══════════════════════════════════════════════════════════════════════════
