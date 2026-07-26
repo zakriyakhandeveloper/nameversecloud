@@ -5,7 +5,7 @@ compatibility_flags = ["nodejs_compat"]
 
 [[routes]]
 pattern = "nameverse.site/*"
-zone_name = "nameverse"
+zone_name = "nameverse.site"
 
 [site]
 bucket = ".open-next/assets"
