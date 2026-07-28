@@ -3,29 +3,19 @@ import { Sparkles, Moon, ChevronLeft, ChevronRight, Search, Grid3X3, BookOpen } 
 import { getSiteUrl, absoluteUrl } from '@/lib/seo/site';
 import { createSafeSlug } from '@/lib/utils/createSafeSlug';
 import { validateMetaTitle, validateMetaDescription, generateCanonicalUrl } from '@/lib/seo/meta-helpers';
-import { serverFetchNamesWithAdvancedFilters } from '@/lib/api/server-fetch';
 import BlogSection from '@/components/Blog/BlogSection';
+import { getNameEntries } from '@/lib/data/local-name-loader.mjs';
 
 const VALID_RELIGIONS = ['islamic', 'christian', 'hindu'];
 const STATIC_ORIGINS = ['arabic', 'persian', 'turkish', 'indian', 'english', 'other'];
 
-// ISR with 60-day cache to minimize writes
-export const revalidate = 2592000; // 30 days
 export const dynamicParams = true;
 
-// Pre-generate first pages of each origin/religion combo at build time; deeper
-// pages generate on-demand via ISR. Capping to the first 2 pages keeps the build
-// fast (prebuilding all 6x3x20 triggered slow per-page backend fetches).
 export async function generateStaticParams() {
-  const VALID_RELIGIONS = ['islamic', 'christian', 'hindu'];
-  const STATIC_ORIGINS = ['arabic', 'persian', 'turkish', 'indian', 'english', 'other'];
-  const MAX_PAGES = 2;
   const params = [];
   for (const religion of VALID_RELIGIONS) {
     for (const origin of STATIC_ORIGINS) {
-      for (let page = 1; page <= MAX_PAGES; page++) {
-        params.push({ religion, origin, page: String(page) });
-      }
+      params.push({ religion, origin, page: '1' });
     }
   }
   return params;
@@ -67,10 +57,14 @@ export async function generateMetadata({ params }) {
   const religionLabel = religion.charAt(0).toUpperCase() + religion.slice(1);
   const originLabel = origin.charAt(0).toUpperCase() + origin.slice(1);
 
-  // Fetch pagination data for prev/next
-  const response = await serverFetchNamesWithAdvancedFilters({ religion, origin, page, limit: 50 });
-  const pagination = response.pagination || { totalPages: 1, totalCount: 0 };
-  const totalPages = pagination.totalPages || 1;
+  const entries = getNameEntries(religion)
+    .filter((item) => item?.data?.name && typeof item.data.name === 'string')
+    .filter((item) => {
+      const originValue = String(item.data.origin || '').toLowerCase();
+      return originValue.includes(origin.toLowerCase());
+    });
+  const totalCount = entries.length;
+  const totalPages = Math.max(1, Math.ceil(totalCount / 50));
 
   const hasPrev = page > 1;
   const hasNext = page < totalPages;
@@ -166,44 +160,21 @@ export default async function OriginNamesPage({ params }) {
   const religionLabel = religion.charAt(0).toUpperCase() + religion.slice(1);
   const originLabel = origin.charAt(0).toUpperCase() + origin.slice(1);
 
-  let names = [];
-  let pagination = { totalPages: 1, totalCount: 0 };
+  const entries = getNameEntries(religion)
+    .filter((item) => item?.data?.name && typeof item.data.name === 'string')
+    .filter((item) => {
+      const originValue = String(item.data.origin || '').toLowerCase();
+      return originValue.includes(origin.toLowerCase());
+    })
+    .sort((a, b) => a.data.name.localeCompare(b.data.name));
 
-  const response = await serverFetchNamesWithAdvancedFilters({
+  const names = entries.slice((page - 1) * 50, page * 50).map((item) => ({
+    name: item.data.name,
+    slug: item.slug,
     religion,
-    origin,
-    page,
-    limit: 50,
-    sort: 'asc',
-  });
-
-  names = response.data || [];
-  names = names.filter(item => item.name && typeof item.name === 'string');
-  pagination = response.pagination || { totalPages: 1, totalCount: 0 };
-
-  // If backend is in degraded state, show loading UI instead of error page
-  // NEVER return 404 for uncertain data
-  if (response.error) {
-    return (
-      <main className="min-h-screen bg-gradient-to-b from-emerald-50 via-white to-emerald-50 flex items-center justify-center">
-        <div className="text-center max-w-md mx-auto px-4">
-          <div className="text-6xl mb-4">⚠️</div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-3">Loading Origin</h1>
-          <p className="text-gray-600 mb-6">
-            We're experiencing connectivity issues. Please refresh the page or try again later.
-          </p>
-          <Link
-            href={`/names/${religion}/letter/a/1`}
-            className="inline-flex items-center gap-2 bg-emerald-600 text-white px-6 py-3 rounded-xl hover:bg-emerald-700 transition-colors font-semibold"
-          >
-            Browse All Names
-          </Link>
-        </div>
-      </main>
-    );
-  }
-
-  const { totalPages = 1, totalCount = 0 } = pagination;
+  }));
+  const totalCount = entries.length;
+  const totalPages = Math.max(1, Math.ceil(totalCount / 50));
   const hasPrev = page > 1;
   const hasNext = page < totalPages;
 

@@ -1,0 +1,5 @@
+[
+  { "name": "Aisha", "slug": "aisha", "religion": "islamic", "gender": "girl", "meaning": "alive", "origin": "Arabic", "luckyNumber": 2 },
+  { "name": "Mariam", "slug": "mariam", "religion": "islamic", "gender": "girl", "meaning": "beloved", "origin": "Arabic", "luckyNumber": 7 },
+  { "name": "Zara", "slug": "zara", "religion": "islamic", "gender": "girl", "meaning": "bright", "origin": "Arabic", "luckyNumber": 5 }
+]

@@ -1,0 +1,5 @@
+[
+  { "name": "Ayaan", "slug": "ayaan", "religion": "islamic", "gender": "boy", "meaning": "gift", "origin": "Arabic", "luckyNumber": 6 },
+  { "name": "Zayan", "slug": "zayan", "religion": "islamic", "gender": "boy", "meaning": "beauty", "origin": "Arabic", "luckyNumber": 3 },
+  { "name": "Yusuf", "slug": "yusuf", "religion": "islamic", "gender": "boy", "meaning": "God increases", "origin": "Arabic", "luckyNumber": 8 }
+]

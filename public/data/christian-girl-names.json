@@ -1,0 +1,5 @@
+[
+  { "name": "Olivia", "slug": "olivia", "religion": "christian", "gender": "girl", "meaning": "olive tree", "origin": "Latin", "luckyNumber": 3 },
+  { "name": "Grace", "slug": "grace", "religion": "christian", "gender": "girl", "meaning": "God's favor", "origin": "English", "luckyNumber": 8 },
+  { "name": "Emma", "slug": "emma", "religion": "christian", "gender": "girl", "meaning": "universal", "origin": "Germanic", "luckyNumber": 5 }
+]

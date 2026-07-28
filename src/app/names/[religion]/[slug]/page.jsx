@@ -1,67 +1,23 @@
 import { notFound } from 'next/navigation';
 import { createSlug, nameAbsoluteUrl, isValidSlug } from '@/lib/seo/url-builder';
 import { generateNamePageMetadata, generateNamePageSchemas } from '@/lib/seo/name-page-seo';
-import { serverFetchNameDetail, serverFetchTrendingNames, serverFilterKnownSlugs } from '@/lib/api/server-fetch';
 import { sanitizeNameData } from '@/lib/utils/sanitizeNameData';
 import CulturalNameAnalysisCard from '@/components/name/NameDetail';
 import Script from 'next/script';
 import NativeBanner from '@/components/Ads/NativeBanner';
-import { findLocalNameData, getLocalNameList, getAllLocalNameSlugs } from '@/lib/data/local-name-data.mjs';
+import { readNameData, getNameSlugs, getNameList, filterKnownSlugs } from '@/lib/data/local-name-loader.mjs';
 
 const VALID_RELIGIONS = ['islamic', 'christian', 'hindu'];
 export const dynamicParams = true;
 
-// 30-day ISR: name pages stay cached for 30 days unless
-// on-demand revalidation via webhook forces an immediate refresh.
-export const revalidate = 2592000;
-
 export async function generateStaticParams() {
-  const staticNames = [];
-  const addSlugs = (slugs, religion) => {
-    for (const s of slugs) {
-      if (s && isValidSlug(s)) staticNames.push({ religion, slug: s });
-    }
-  };
-
-  addSlugs(getAllLocalNameSlugs('islamic'), 'islamic');
-  addSlugs(getAllLocalNameSlugs('christian'), 'christian');
-  addSlugs(getAllLocalNameSlugs('hindu'), 'hindu');
-
-  const seen = new Set();
-  const deduped = [];
-  for (const entry of staticNames) {
-    const key = `${entry.religion}|${entry.slug}`;
-    if (!seen.has(key)) {
-      seen.add(key);
-      deduped.push(entry);
+  const params = [];
+  for (const religion of VALID_RELIGIONS) {
+    for (const slug of getNameSlugs(religion)) {
+      if (slug && isValidSlug(slug)) params.push({ religion, slug });
     }
   }
-
-  // Prebuild a bounded set of high-traffic slugs at deploy time to keep the
-  // build fast and within memory. The previous 28/religion cap was too low
-  // (drove on-demand ISR writes); prebuilding ALL 855 exhausted build memory
-  // (OOM at ~487/1133 pages). 120 per religion (360 total) covers the popular
-  // names statically; the rest generate on-demand via ISR and cache for a year.
-  const perReligionLimit = 120;
-  const limited = {};
-  for (const entry of deduped) {
-    if (!limited[entry.religion]) limited[entry.religion] = 0;
-    if (limited[entry.religion] < perReligionLimit) {
-      limited[entry.religion]++;
-      // keep as-is in order
-    }
-  }
-  // Re-filter preserving order and the per-religion cap
-  const counts = {};
-  const result = [];
-  for (const entry of deduped) {
-    if (!counts[entry.religion]) counts[entry.religion] = 0;
-    if (counts[entry.religion] < perReligionLimit) {
-      counts[entry.religion]++;
-      result.push(entry);
-    }
-  }
-  return result;
+  return params;
 }
 
 export async function generateMetadata({ params }) {
@@ -77,22 +33,14 @@ export async function generateMetadata({ params }) {
     };
   }
 
-  const fetchResult = await serverFetchNameDetail(religion, slug);
-  
-  // Explicit 404 from backend - content confirmed missing
-  if (fetchResult.notFound) {
+  const nameData = readNameData(religion, slug);
+
+  if (!nameData) {
     return {
       title: 'Name Not Found | NameVerse',
       description: 'The requested name page does not exist on NameVerse.',
       robots: { index: false, follow: false },
     };
-  }
-  
-  let nameData = fetchResult.data;
-  
-  // Fallback to local data if API failed (degraded state)
-  if (!nameData) {
-    nameData = findLocalNameData(religion, slug);
   }
 
   // Clean name field before metadata generation
@@ -130,21 +78,8 @@ export default async function NameDetailPage({ params }) {
     return notFound();
   }
 
-  const fetchResult = await serverFetchNameDetail(religion, slug);
-  
-  // Explicit 404 from backend - content confirmed missing in DB
-  if (fetchResult.notFound) {
-    return notFound();
-  }
-  
-  let nameData = fetchResult.data;
-  
-  // Fallback to local data if API failed (degraded state)
-  if (!nameData) {
-    nameData = findLocalNameData(religion, slug);
-  }
+  const nameData = readNameData(religion, slug);
 
-  // If still no data, check if this is a truly missing entry or degraded state
   if (!nameData) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 via-white to-gray-50">
@@ -171,9 +106,9 @@ export default async function NameDetailPage({ params }) {
   // only renders internal <Link>s to name pages that actually exist (fixes a
   // long-standing source of 404s from similar_sounding_names).
   const [filteredSimilar, filteredRelated, filteredVariations] = await Promise.all([
-    serverFilterKnownSlugs(religion, nameData.similar_sounding_names),
-    serverFilterKnownSlugs(religion, nameData.related_names),
-    serverFilterKnownSlugs(religion, nameData.name_variations),
+    Promise.resolve(filterKnownSlugs(religion, nameData.similar_sounding_names)),
+    Promise.resolve(filterKnownSlugs(religion, nameData.related_names)),
+    Promise.resolve(filterKnownSlugs(religion, nameData.name_variations)),
   ]);
   nameData = {
     ...nameData,
@@ -199,19 +134,8 @@ export default async function NameDetailPage({ params }) {
   const fallbackFaq = Array.isArray(apiSeo?.faq) ? apiSeo.faq : [];
   const faqData = primaryFaq.length > 0 ? primaryFaq : fallbackFaq;
 
-  const trendingResult = await serverFetchTrendingNames({ religion, limit: 8 });
-  const apiTrendingNames = (trendingResult.data || [])
-    .map((item) => {
-      const name = typeof item === 'object' ? item.name : item;
-      const slugValue = typeof item === 'object' ? item.slug : '';
-      const safeSlug = slugValue || createSlug(name);
-      return { name, slug: safeSlug };
-    })
-    .filter((item) => item.name && item.slug && item.slug.length >= 2 && isValidSlug(item.slug));
-  const fallbackTrendingNames = apiTrendingNames.length > 0
-    ? apiTrendingNames
-    : getLocalNameList(religion, 8, slug);
-  const trendingNamesSource = apiTrendingNames.length > 0 && !trendingResult.error ? 'trending' : 'suggested';
+  const trendingNames = getNameList(religion, 8, slug);
+  const trendingNamesSource = 'suggested';
 
   return (
     <>
@@ -273,7 +197,7 @@ export default async function NameDetailPage({ params }) {
         data={nameData}
         faqData={faqData}
         pageUrl={pageUrl}
-        trendingNames={fallbackTrendingNames}
+        trendingNames={trendingNames}
         trendingNamesSource={trendingNamesSource}
       />
     </>

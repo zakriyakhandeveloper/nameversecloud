@@ -1,0 +1,5 @@
+[
+  { "name": "Noah", "slug": "noah", "religion": "christian", "gender": "boy", "meaning": "rest", "origin": "Hebrew", "luckyNumber": 4 },
+  { "name": "Elias", "slug": "elias", "religion": "christian", "gender": "boy", "meaning": "the Lord is my God", "origin": "Hebrew", "luckyNumber": 9 },
+  { "name": "Liam", "slug": "liam", "religion": "christian", "gender": "boy", "meaning": "resolute protection", "origin": "Irish", "luckyNumber": 1 }
+]

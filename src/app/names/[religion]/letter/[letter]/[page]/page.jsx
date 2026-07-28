@@ -1,6 +1,6 @@
 import { generateCanonicalUrl, validateMetaTitle, validateMetaDescription } from '@/lib/seo/meta-helpers';
-import { serverFetchNamesByLetter } from '@/lib/api/server-fetch';
 import { getSiteUrl, absoluteUrl } from '@/lib/seo/site';
+import { readNameData, getNameEntries } from '@/lib/data/local-name-loader.mjs';
 import { Sparkles, Moon, ChevronLeft, ChevronRight, Search, Star, BookOpen, Heart, Grid3X3 } from 'lucide-react';
 import Link from 'next/link';
 import Script from 'next/script';
@@ -11,24 +11,17 @@ const VALID_RELIGIONS = ['islamic', 'christian', 'hindu'];
 const ALPHABET = 'abcdefghijklmnopqrstuvwxyz#'.split('');
 const NAMES_PER_PAGE = 50;
 
-// ISR with 60-day cache to minimize writes
-export const revalidate = 2592000; // 30 days
 export const dynamicParams = true;
 
-// Pre-generate first pages of each letter/religion combo at build time; deeper
-// pages generate on-demand via ISR. Prebuilding ALL pages (27x3x20) triggered
-// slow backend fetches per page and exceeded the 60s build timeout. Capping to
-// the first 2 pages keeps build fast while hot pages stay static.
 export async function generateStaticParams() {
-  const VALID_RELIGIONS = ['islamic', 'christian', 'hindu'];
-  const ALPHABET = 'abcdefghijklmnopqrstuvwxyz#'.split('');
-  const MAX_PAGES = 2;
   const params = [];
+  const letters = 'abcdefghijklmnopqrstuvwxyz#'.split('');
   for (const religion of VALID_RELIGIONS) {
-    for (const letter of ALPHABET) {
-      for (let page = 1; page <= MAX_PAGES; page++) {
-        params.push({ religion, letter, page: String(page) });
-      }
+    const entries = getNameEntries(religion);
+    const availableLetters = new Set(entries.map((entry) => entry?.data?.name?.charAt(0)?.toLowerCase()).filter(Boolean));
+    for (const letter of letters) {
+      if (!availableLetters.has(letter) && letter !== '#') continue;
+      params.push({ religion, letter, page: '1' });
     }
   }
   return params;
@@ -165,9 +158,14 @@ export async function generateMetadata({ params }) {
       : `Browse page ${page} of ${religionLabel} baby names starting with "${letter}". Find detailed name meanings, cultural origins, and lucky numbers. Continue your search for the perfect ${religionLabel} name.`;
 
   // Fetch totalCount for prev/next determination
-  const response = await serverFetchNamesByLetter(letter, { religion, page, limit: NAMES_PER_PAGE });
-  const pagination = response.pagination || { totalPages: 1, totalCount: 0 };
-  const totalPages = pagination.totalPages || 1;
+  const entries = getNameEntries(religion)
+    .filter((item) => item?.data?.name && typeof item.data.name === 'string')
+    .filter((item) => {
+      const firstChar = item.data.name.trim().charAt(0).toLowerCase();
+      return letter === '#' ? !/^[a-z]$/.test(firstChar) : firstChar === letter;
+    });
+  const totalCount = entries.length;
+  const totalPages = Math.max(1, Math.ceil(totalCount / NAMES_PER_PAGE));
   const currentPage = Math.min(Math.max(page, 1), totalPages);
 
   const hasPrev = currentPage > 1;
@@ -244,18 +242,21 @@ export default async function LetterNamesPage({ params }) {
   const gradient = getReligionGradient(religion);
   const emoji = getReligionEmoji(religion);
 
-  const response = await serverFetchNamesByLetter(letter, {
-    religion,
-    page,
-    limit: NAMES_PER_PAGE,
-    sort: 'asc',
-  });
+  const entries = getNameEntries(religion)
+    .filter((item) => item?.data?.name && typeof item.data.name === 'string')
+    .filter((item) => {
+      const firstChar = item.data.name.trim().charAt(0).toLowerCase();
+      return letter === '#' ? !/^[a-z]$/.test(firstChar) : firstChar === letter;
+    })
+    .sort((a, b) => a.data.name.localeCompare(b.data.name));
 
-  const names = (response.data || []).filter(
-    (item) => item.name && typeof item.name === 'string'
-  );
-  const pagination = response.pagination || { totalPages: 1, totalCount: 0 };
-  const { totalPages = 1, totalCount = 0 } = pagination;
+  const names = entries.slice((page - 1) * NAMES_PER_PAGE, page * NAMES_PER_PAGE).map((item) => ({
+    name: item.data.name,
+    slug: item.slug,
+    religion,
+  }));
+  const totalCount = entries.length;
+  const totalPages = Math.max(1, Math.ceil(totalCount / NAMES_PER_PAGE));
   const currentPage = Math.min(Math.max(page, 1), totalPages);
   const hasPrev = currentPage > 1;
   const hasNext = currentPage < totalPages;
