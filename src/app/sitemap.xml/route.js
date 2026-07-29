@@ -2,8 +2,6 @@ import { NextResponse } from 'next/server';
 import manifest from '../../../public/seo-sitemap-manifest.json';
 
 export const dynamic = 'force-static';
-export const revalidate = 86400;
-
 export async function GET() {
   const today = new Date().toISOString().split('T')[0];
   const urls = (manifest.sitemaps || [])

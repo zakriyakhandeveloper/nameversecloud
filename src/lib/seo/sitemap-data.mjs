@@ -31,7 +31,7 @@ const STATIC_ORIGINS = ['arabic', 'persian', 'turkish', 'indian', 'english', 'ot
 const MAX_SITEMAP_URLS = 45000;
 const MAX_NAMES_PER_SITEMAP = 50;
 const MAX_COLLECTION_PAGES = 50; // Prevent thin pages beyond page 50
-const API_BASE = (process.env.NEXT_PUBLIC_API_BASE || 'https://name-meaning-site-backend.vercel.app').replace(/\/+$/, '');
+const API_BASE = (process.env.NEXT_PUBLIC_API_BASE || 'https://nameverse.site').replace(/\/+$/, '');
 
 // Reserved slugs that should never appear in sitemap
 const RESERVED_SLUGS = new Set([

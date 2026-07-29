@@ -1,5 +1,3 @@
-export const revalidate = 2592000; // 30 days
-
 import { validateMetaTitle, validateMetaDescription } from '@/lib/seo/meta-helpers';
 import { getSiteUrl } from '@/lib/seo/site';
 import { EEAT_CONFIG, SOURCES } from '@/lib/seo/enterprise-seo-config';

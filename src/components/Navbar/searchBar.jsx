@@ -87,9 +87,9 @@ export default function SearchBar() {
 
     const match = names.find((n) => n.name.toLowerCase() === trimmed.toLowerCase());
     if (match) {
-      router.push(/names/religion/islamic/1);
+      router.push(`/names/${match.religion}/${match.slug}`);
     } else {
-      router.push(`/search/${createSafeSlug(trimmed) || 'search'}`);
+      router.push(`/search?q=${encodeURIComponent(trimmed)}`);
     }
     setShowSuggestions(false);
   };
@@ -97,7 +97,11 @@ export default function SearchBar() {
   const handleSelect = (item) => {
     setQuery(item.name);
     setShowSuggestions(false);
-    router.push(/names/religion/islamic/1);
+    if (item.slug) {
+      router.push(`/names/${item.religion}/${item.slug}`);
+    } else {
+      router.push(`/search?q=${encodeURIComponent(item.name)}`);
+    }
   };
 
   return (

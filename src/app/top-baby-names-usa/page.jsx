@@ -1,5 +1,3 @@
-export const revalidate = 2592000; // 30 days
-
 import NameTable from "./NameTable";
 import {
   boysNames,

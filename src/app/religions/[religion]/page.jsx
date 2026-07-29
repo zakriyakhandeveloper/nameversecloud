@@ -1,5 +1,3 @@
-export const revalidate = 2592000; // 30 days
-
 import meaningContent from '../../../../public/data/meaning-content.json';
 import islamicNames from '../../../../public/islamic_names.json';
 import christianNames from '../../../../public/christians_names.json';

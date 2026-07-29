@@ -13,7 +13,7 @@ export default function NotFound() {
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      router.push(`/search/${createSafeSlug(searchQuery.trim()) || 'search'}`);
+      router.push(`/search?q=${encodeURIComponent(createSafeSlug(searchQuery.trim()) || 'search')}`);
     }
   };
 

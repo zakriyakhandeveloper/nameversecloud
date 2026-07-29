@@ -3,8 +3,6 @@ import { validateMetaDescription, validateMetaTitle } from '@/lib/seo/meta-helpe
 import { getSiteUrl } from '@/lib/seo/site';
 import blogPosts from '../../public/data/blog-posts.json';
 
-export const revalidate = 2592000; // 30 days
-
 function getDomain() {
   const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || getSiteUrl();
   try {

@@ -1,7 +1,5 @@
 import { redirect } from 'next/navigation';
 
-export const revalidate = 2592000; // 30 days
-
 export async function generateMetadata() {
   return {
     title: 'Name Meanings — Search by Meaning | NameVerse',

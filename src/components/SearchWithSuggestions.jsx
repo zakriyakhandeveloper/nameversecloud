@@ -99,7 +99,7 @@ const SearchWithSuggestions = () => {
     }
 
     // No exact match — go to search results page
-    router.push(`/search/${createSafeSlug(trimmed)}`);
+    router.push(`/search?q=${encodeURIComponent(trimmed)}`);
   };
 
   // Clear search

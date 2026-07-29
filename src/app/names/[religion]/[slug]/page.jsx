@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { createSlug, nameAbsoluteUrl, isValidSlug } from '@/lib/seo/url-builder';
 import { generateNamePageMetadata, generateNamePageSchemas } from '@/lib/seo/name-page-seo';
 import { sanitizeNameData } from '@/lib/utils/sanitizeNameData';
-import CulturalNameAnalysisCard from '@/components/name/NameDetail';
+import NameDetailClient from '@/components/name/NameDetailClient';
 import Script from 'next/script';
 import NativeBanner from '@/components/Ads/NativeBanner';
 import { readNameData, getNameSlugs, getNameList, filterKnownSlugs } from '@/lib/data/local-name-loader.mjs';
@@ -100,25 +100,25 @@ export default async function NameDetailPage({ params }) {
     );
   }
 
-  nameData = sanitizeNameData(nameData);
+  let sanitizedNameData = sanitizeNameData(nameData);
 
   // Pre-validate similar/related/variation links against the backend so the page
   // only renders internal <Link>s to name pages that actually exist (fixes a
   // long-standing source of 404s from similar_sounding_names).
   const [filteredSimilar, filteredRelated, filteredVariations] = await Promise.all([
-    Promise.resolve(filterKnownSlugs(religion, nameData.similar_sounding_names)),
-    Promise.resolve(filterKnownSlugs(religion, nameData.related_names)),
-    Promise.resolve(filterKnownSlugs(religion, nameData.name_variations)),
+    Promise.resolve(filterKnownSlugs(religion, sanitizedNameData.similar_sounding_names)),
+    Promise.resolve(filterKnownSlugs(religion, sanitizedNameData.related_names)),
+    Promise.resolve(filterKnownSlugs(religion, sanitizedNameData.name_variations)),
   ]);
-  nameData = {
-    ...nameData,
+  sanitizedNameData = {
+    ...sanitizedNameData,
     similar_sounding_names: filteredSimilar,
     related_names: filteredRelated,
     name_variations: filteredVariations,
   };
 
   const pageUrl = nameAbsoluteUrl(religion, slug);
-  const schemas = generateNamePageSchemas(nameData, religion, slug);
+  const schemas = generateNamePageSchemas(sanitizedNameData, religion, slug);
 
   // ── FAQ data (Part 2) ──
   // The backend returns TWO faq arrays with different phrasing:
@@ -128,7 +128,7 @@ export default async function NameDetailPage({ params }) {
   // former is missing/empty. NOTE: this duplication is an API/data bug — the
   // two arrays should be merged/normalised server-side. Temporary workaround
   // until that's fixed. See FAQ section below for the rendering guard.
-  const apiSeo = nameData?.seo || {};
+  const apiSeo = sanitizedNameData?.seo || {};
   const nestedSeo = apiSeo?.seo || {};
   const primaryFaq = Array.isArray(nestedSeo?.faq) ? nestedSeo.faq : [];
   const fallbackFaq = Array.isArray(apiSeo?.faq) ? apiSeo.faq : [];
@@ -193,8 +193,8 @@ export default async function NameDetailPage({ params }) {
 
       <NativeBanner className="my-4" minHeight="90px" instanceId={`name-page-${slug}`} />
 
-      <CulturalNameAnalysisCard
-        data={nameData}
+      <NameDetailClient
+        data={sanitizedNameData}
         faqData={faqData}
         pageUrl={pageUrl}
         trendingNames={trendingNames}

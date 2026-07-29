@@ -48,7 +48,11 @@ import NativeBanner from '@/components/Ads/NativeBanner';
 import ReadingProgress from '@/components/Blog/ReadingProgress';
 import BackToTop from '@/components/Blog/BackToTop';
 
-export const revalidate = 2592000; // 30 days
+export const dynamic = 'force-static';
+export const dynamicParams = false;
+export async function generateStaticParams() {
+  return blogPostsData.map((post) => ({ slug: post.id }));
+}
 
 // ─── Metadata Generator (Enhanced) ──────────────────────────────────────
 

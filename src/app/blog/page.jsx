@@ -42,8 +42,6 @@ import SitePage from '@/components/Layout/SitePage';
 import NativeBanner from '@/components/Ads/NativeBanner';
 
 // ISR with 365-day cache
-export const revalidate = 2592000; // 30 days
-
 const blogFaq = [
   {
     question: 'How do I choose the perfect baby name?',

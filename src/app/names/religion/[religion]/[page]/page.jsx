@@ -2,12 +2,12 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import StructuredData from '@/components/SEO/StructuredData.jsx';
 import Breadcrumbs from '@/components/Breadcrumbs/Breadcrumbs.jsx';
-import { serverFetchNamesWithAdvancedFilters } from '@/lib/api/server-fetch';
 import { validateMetaTitle, validateMetaDescription, generateCanonicalUrl } from '@/lib/seo/meta-helpers';
 import { ChevronLeft, ChevronRight, Sparkles, Moon, Globe, BookOpen, Heart, Star, TrendingUp, Users, Languages, Award } from 'lucide-react';
 import FavoriteButton from '@/components/FavoriteButton';
 import { getSiteUrl } from '@/lib/seo/site';
 import { createSafeSlug } from '@/lib/utils/createSafeSlug';
+import { getNameEntries } from '@/lib/data/local-name-loader.mjs';
 
 const VALID_RELIGIONS = ['islamic', 'christian', 'hindu'];
 const RELIGION_LABELS = {
@@ -16,24 +16,20 @@ const RELIGION_LABELS = {
   hindu: 'Hindu',
 };
 
-// ISR with 60-day cache to minimize writes
-export const revalidate = 2592000; // 30 days
 export const dynamicParams = true;
 
-// Pre-generate religion pages at build time
+// Pre-generate all religion pages from local name data
 export async function generateStaticParams() {
   const religions = ['islamic', 'christian', 'hindu'];
   const params = [];
 
   for (const religion of religions) {
-    // Pre-generate the first 2 pages of each religion at build time; deeper
-    // pages generate on-demand via ISR. Keeps the build fast while hot pages
-    // stay static (prebuilding 20 pages/religion triggered slow backend fetches).
-    for (let page = 1; page <= 2; page++) {
-      params.push({
-        religion,
-        page: String(page),
-      });
+    const entries = getNameEntries(religion)
+      .filter((item) => item?.data?.name && typeof item.data.name === 'string')
+      .sort((a, b) => a.data.name.localeCompare(b.data.name));
+    const totalPages = Math.max(1, Math.ceil(entries.length / 50));
+    for (let page = 1; page <= totalPages; page++) {
+      params.push({ religion, page: String(page) });
     }
   }
 
@@ -78,10 +74,11 @@ export async function generateMetadata({ params }) {
     };
   }
 
-  // Fetch pagination data for prev/next
-  const response = await serverFetchNamesWithAdvancedFilters({ religion, page, limit: 50 });
-  const pagination = response.pagination || { totalPages: 1, totalCount: 0 };
-  const totalPages = pagination.totalPages || 1;
+  const entries = getNameEntries(religion)
+    .filter((item) => item?.data?.name && typeof item.data.name === 'string')
+    .sort((a, b) => a.data.name.localeCompare(b.data.name));
+  const totalCount = entries.length;
+  const totalPages = Math.max(1, Math.ceil(totalCount / 50));
 
   const hasPrev = page > 1;
   const hasNext = page < totalPages;
@@ -286,45 +283,23 @@ export default async function ReligionByPage({ params }) {
     );
   }
 
-  const response = await serverFetchNamesWithAdvancedFilters({
+  const entries = getNameEntries(religion)
+    .filter((item) => item?.data?.name && typeof item.data.name === 'string')
+    .sort((a, b) => a.data.name.localeCompare(b.data.name));
+  const totalCount = entries.length;
+  const totalPages = Math.max(1, Math.ceil(totalCount / 50));
+  const currentPage = Math.min(Math.max(page, 1), totalPages);
+  const names = entries.slice((currentPage - 1) * 50, currentPage * 50).map((item) => ({
+    name: item.data.name,
+    slug: item.slug,
     religion,
-    page,
-    limit: 50,
-    sort: 'asc',
-  });
-
-  // If backend is in degraded state, show loading UI instead of 404
-  // NEVER return 404 for uncertain data
-  if (response.error) {
-    return (
-      <main className="min-h-screen bg-gradient-to-b from-gray-50 via-white to-gray-50 flex items-center justify-center">
-        <div className="text-center max-w-md mx-auto px-4">
-          <div className="text-6xl mb-4">⚠️</div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-3">Loading Content</h1>
-          <p className="text-gray-600 mb-6">
-            We're experiencing connectivity issues. Please refresh the page or try again later.
-          </p>
-          <Link
-            href={`/names/${religion}/letter/a/1`}
-            className="inline-flex items-center gap-2 bg-emerald-600 text-white px-6 py-3 rounded-xl hover:bg-emerald-700 transition-colors font-semibold"
-          >
-            Browse All {RELIGION_LABELS[religion]} Names
-          </Link>
-        </div>
-      </main>
-    );
-  }
-
-  // If backend fails, don't return 404 - show empty state
-  const names = Array.isArray(response.data) ? response.data : [];
-  const pagination = response.pagination || { page: 1, limit: 50, totalCount: 0, totalPages: 1 };
-  const { totalPages = 1, totalCount = 0 } = pagination;
-  const hasPrev = page > 1;
-  const hasNext = page < totalPages;
-  const prevUrl = hasPrev ? `/names/religion/${religion}/${page - 1}` : null;
-  const nextUrl = hasNext ? `/names/religion/${religion}/${page + 1}` : null;
+  }));
+  const hasPrev = currentPage > 1;
+  const hasNext = currentPage < totalPages;
+  const prevUrl = hasPrev ? `/names/religion/${religion}/${currentPage - 1}` : null;
+  const nextUrl = hasNext ? `/names/religion/${religion}/${currentPage + 1}` : null;
+  const canonical = generateCanonicalUrl(`/names/religion/${religion}/${currentPage}`);
   const title = `${RELIGION_LABELS[religion]} Names`;
-  const canonical = generateCanonicalUrl(`/names/religion/${religion}/${page}`);
 
   return (
     <>

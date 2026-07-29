@@ -4,8 +4,6 @@ import { getSiteUrl } from '@/lib/seo/site'
 import { validateMetaTitle, validateMetaDescription } from '@/lib/seo/meta-helpers'
 
 // ISR: 365-day cache
-export const revalidate = 2592000; // 30 days
-
 const categories = [
   {
     title: "Islamic Names — Arabic & Semitic Linguistic Analysis",

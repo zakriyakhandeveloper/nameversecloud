@@ -1,5 +1,3 @@
-export const revalidate = 2592000; // 30 days
-
 import meaningContent from '../../../../public/data/meaning-content.json';
 import blogPosts from '../../../../public/data/blog-posts.json';
 import Link from 'next/link';

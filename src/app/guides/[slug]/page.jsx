@@ -5,9 +5,13 @@ import { getSiteUrl } from '@/lib/seo/site';
 import blogPostsData from '../../../../public/data/blog-posts.json';
 import NativeBanner from '@/components/Ads/NativeBanner';
 
-// ISR: 30-day cache — static blog content
-export const revalidate = 2592000; // 30 days
+export const dynamic = 'force-static';
+export const dynamicParams = false;
+export function generateStaticParams() {
+  return blogPostsData.map((post) => ({ slug: post.id }));
+}
 
+// ISR: 30-day cache — static blog content
 // Generate metadata for SEO
 export async function generateMetadata({ params }) {
   const resolvedParams = await params;

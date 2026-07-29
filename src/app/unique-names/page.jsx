@@ -7,8 +7,6 @@ import SitePage from '@/components/Layout/SitePage';
 import { gradientFor } from '@/lib/ui/colorGradient';
 
 // ISR: 30-day cache — static content
-export const revalidate = 2592000; // 30 days
-
 export const metadata = {
   title: validateMetaTitle('Unique Baby Names — Rare & Uncommon Names | NameVerse'),
   description: validateMetaDescription(

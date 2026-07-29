@@ -5,9 +5,12 @@ import { NOINDEX_ROBOTS } from '@/lib/seo/topical-authority-architecture';
 import ClientComponent from './ClientComponent';
 import { createSafeSlug } from '@/lib/utils/createSafeSlug';
 
-// ISR: 30-day cache — search results are relatively static
-export const revalidate = 2592000; // 30 days
+export const dynamicParams = false;
+export function generateStaticParams() {
+  return [];
+}
 
+// ISR: 30-day cache — search results are relatively static
 export async function generateMetadata({ params }) {
   const { term } = await params;
   const searchResults = await serverSearchNames(term, { limit: 20 });

@@ -1,5 +1,7 @@
 import blogPosts from '../../../public/data/blog-posts.json';
 
+export const dynamic = 'force-static';
+
 const SITE_URL = (
   process.env.NEXT_PUBLIC_SITE_URL || 'https://nameverse.site'
 )
@@ -7,8 +9,6 @@ const SITE_URL = (
   .replace(/\/+$/, '');
 
 // ISR: 1 day — blog posts may be added/updated frequently
-export const revalidate = 86400;
-
 const defaultHeaders = {
   'Content-Type': 'application/xml',
   'Cache-Control': 'public, max-age=3600, stale-while-revalidate=86400',

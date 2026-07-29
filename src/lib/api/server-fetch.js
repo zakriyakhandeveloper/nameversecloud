@@ -1,6 +1,6 @@
 /**
- * Uses native fetch() with next.revalidate to enable ISR caching.
- * CRITICAL: Using native fetch with next.revalidate tells Next.js
+ * Uses native fetch() with next.cache to enable ISR caching.
+ * CRITICAL: Using native fetch with next.cache tells Next.js
  * this data can be cached, enabling ISR.
  *
  * All these functions must be used in Server Components only.
@@ -22,12 +22,12 @@ import { createSlug } from '../seo/url-builder';
 import { findLocalNameData, getLocalNameList } from '../data/local-name-data.mjs';
 
 const VALID_RELIGIONS = ['islamic', 'christian', 'hindu'];
-const API_BASE = (process.env.NEXT_PUBLIC_API_BASE || 'https://name-meaning-site-backend.vercel.app').replace(/\/+$/, '');
+const API_BASE = (process.env.NEXT_PUBLIC_API_BASE || 'https://nameverse.site').replace(/\/+$/, '');
 const ISR_TTL = 2592000; // 30 days
 const NAME_TAG = 'name-data';
 
 function getApiBase() {
-  return (process.env.NEXT_PUBLIC_API_BASE || 'https://name-meaning-site-backend.vercel.app').replace(/\/+$/, '');
+  return (process.env.NEXT_PUBLIC_API_BASE || 'https://nameverse.site').replace(/\/+$/, '');
 }
 
 function normalizeReligion(val) {
@@ -48,10 +48,10 @@ function normalizeReligion(val) {
  *
  * IMPORTANT: This function NEVER caches failed responses to prevent ISR poisoning.
  */
-async function safeFetch(url, retries = 2, revalidate = ISR_TTL, tags = []) {
+async function safeFetch(url, retries = 2, cacheTtl = ISR_TTL, tags = []) {
   for (let attempt = 0; attempt <= retries; attempt++) {
     try {
-      const fetchOptions = { next: { revalidate, tags } };
+      const fetchOptions = { next: { cacheTtl, tags } };
       const res = await fetch(url, fetchOptions);
 
       // Explicit 404 - backend confirms resource doesn't exist
@@ -84,12 +84,12 @@ async function safeFetch(url, retries = 2, revalidate = ISR_TTL, tags = []) {
 
 /**
  * Fetch with retry - used for critical name detail lookups.
- * IMPORTANT: Never use revalidate: 0 as it causes "Dynamic server usage"
+ * IMPORTANT: Never use cacheTtl: 0 as it causes "Dynamic server usage"
  * errors during static generation. Always use a positive revalidation time.
  */
-async function isrFetchWithRetry(url, retries = 2, revalidate = ISR_TTL, tags = []) {
+async function isrFetchWithRetry(url, retries = 2, cacheTtl = ISR_TTL, tags = []) {
   for (let attempt = 0; attempt <= retries; attempt++) {
-    const result = await safeFetch(url, 0, revalidate, tags);
+    const result = await safeFetch(url, 0, cacheTtl, tags);
     if (result.data || result.notFound) return result;
     if (attempt < retries) {
       await new Promise(r => setTimeout(r, 200 * (attempt + 1)));
