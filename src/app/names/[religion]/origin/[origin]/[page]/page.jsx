@@ -9,7 +9,7 @@ import { getNameEntries } from '@/lib/data/local-name-loader.mjs';
 const VALID_RELIGIONS = ['islamic', 'christian', 'hindu'];
 const STATIC_ORIGINS = ['arabic', 'persian', 'turkish', 'indian', 'english', 'other'];
 
-export const dynamicParams = true;
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const params = [];

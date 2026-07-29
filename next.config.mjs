@@ -1,11 +1,13 @@
 const API_BASE = (process.env.NEXT_PUBLIC_API_BASE || 'https://name-meaning-site-backend.vercel.app').replace(/\/+$/, '');
+const repoName = process.env.GITHUB_REPOSITORY?.split('/')[1] || 'nameversecloud';
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || (process.env.GITHUB_ACTIONS ? `/${repoName}` : '');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   output: 'export',
-  basePath: '',
-  assetPrefix: '',
+  basePath,
+  assetPrefix: basePath,
 
   // Disable TypeScript checking during build (already validated in CI)
   typescript: {

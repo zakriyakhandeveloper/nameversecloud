@@ -7,8 +7,14 @@ import NativeBanner from '@/components/Ads/NativeBanner';
 
 export const dynamic = 'force-static';
 export const dynamicParams = false;
+
 export function generateStaticParams() {
-  return blogPostsData.map((post) => ({ slug: post.id }));
+  const posts = Array.isArray(blogPostsData) ? blogPostsData : [];
+  const slugs = posts
+    .map((post) => String(post?.id || '').trim())
+    .filter(Boolean);
+
+  return slugs.length ? slugs.map((slug) => ({ slug })) : [{ slug: 'welcome' }];
 }
 
 // ISR: 30-day cache — static blog content

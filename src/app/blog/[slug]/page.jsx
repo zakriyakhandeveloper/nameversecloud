@@ -50,8 +50,14 @@ import BackToTop from '@/components/Blog/BackToTop';
 
 export const dynamic = 'force-static';
 export const dynamicParams = false;
-export async function generateStaticParams() {
-  return blogPostsData.map((post) => ({ slug: post.id }));
+
+export function generateStaticParams() {
+  const posts = Array.isArray(blogPostsData) ? blogPostsData : [];
+  const slugs = posts
+    .map((post) => String(post?.id || '').trim())
+    .filter(Boolean);
+
+  return slugs.length ? slugs.map((slug) => ({ slug })) : [{ slug: 'welcome' }];
 }
 
 // ─── Metadata Generator (Enhanced) ──────────────────────────────────────

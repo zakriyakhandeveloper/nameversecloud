@@ -7,7 +7,7 @@ import { createSafeSlug } from '@/lib/utils/createSafeSlug';
 
 export const dynamicParams = false;
 export function generateStaticParams() {
-  return [];
+  return [{ term: 'a' }, { term: 'adam' }, { term: 'muhammad' }, { term: 'islamic' }];
 }
 
 // ISR: 30-day cache — search results are relatively static

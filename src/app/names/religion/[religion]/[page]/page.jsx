@@ -16,7 +16,7 @@ const RELIGION_LABELS = {
   hindu: 'Hindu',
 };
 
-export const dynamicParams = true;
+export const dynamicParams = false;
 
 // Pre-generate all religion pages from local name data
 export async function generateStaticParams() {

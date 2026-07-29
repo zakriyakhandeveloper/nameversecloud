@@ -31,6 +31,10 @@ jobs:
         run: npm ci
 
       - name: Build site
+        env:
+          NEXT_PUBLIC_SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
+          NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
+          NEXT_PUBLIC_API_BASE: https://name-meaning-site-backend.vercel.app
         run: npm run build
 
       - name: Upload Pages artifact

@@ -10,7 +10,7 @@ import BlogSection from '@/components/Blog/BlogSection';
 const VALID_RELIGIONS = ['islamic', 'christian', 'hindu'];
 const STATIC_CATEGORIES = ['modern', 'traditional', 'nature', 'religious', 'classical', 'unique'];
 
-export const dynamicParams = true;
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const params = [];

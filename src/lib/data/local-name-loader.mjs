@@ -1,11 +1,5 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import { findLocalNameData, getLocalNameList, getAllLocalNameSlugs } from './local-name-data.mjs';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const projectRoot = path.resolve(__dirname, '../../../');
-const PUBLIC_NAMES_ROOT = path.join(projectRoot, 'public', 'names');
 const VALID_RELIGIONS = ['islamic', 'christian', 'hindu'];
 
 function normalizeReligion(religion) {
@@ -15,12 +9,6 @@ function normalizeReligion(religion) {
   if (normalized === 'christianity') return 'christian';
   if (normalized === 'hinduism') return 'hindu';
   return VALID_RELIGIONS.includes(normalized) ? normalized : null;
-}
-
-function getReligionDir(religion) {
-  const normalized = normalizeReligion(religion);
-  if (!normalized) return null;
-  return path.join(PUBLIC_NAMES_ROOT, normalized);
 }
 
 function normalizeSlug(slug) {
@@ -42,27 +30,18 @@ export function readNameData(religion, slug) {
   const normalizedSlug = normalizeSlug(slug);
   if (!normalizedReligion || !normalizedSlug) return null;
 
-  const filePath = path.join(getReligionDir(normalizedReligion), `${normalizedSlug}.json`);
-  if (!fs.existsSync(filePath)) return null;
+  const record = findLocalNameData(normalizedReligion, normalizedSlug);
+  if (!record) return null;
 
-  try {
-    const raw = fs.readFileSync(filePath, 'utf8');
-    const parsed = JSON.parse(raw);
-    const payload = parsed?.data ?? parsed;
-    return ensureRecordShape(normalizedReligion, payload);
-  } catch {
-    return null;
-  }
+  return ensureRecordShape(normalizedReligion, record);
 }
 
 export function getNameSlugs(religion) {
-  const religionDir = getReligionDir(religion);
-  if (!religionDir || !fs.existsSync(religionDir)) return [];
+  const normalizedReligion = normalizeReligion(religion);
+  if (!normalizedReligion) return [];
 
-  return fs
-    .readdirSync(religionDir)
-    .filter((entry) => entry.toLowerCase().endsWith('.json'))
-    .map((entry) => normalizeSlug(entry))
+  return getAllLocalNameSlugs(normalizedReligion)
+    .map((slug) => normalizeSlug(slug))
     .filter(Boolean)
     .sort((a, b) => a.localeCompare(b));
 }
@@ -71,16 +50,12 @@ export function getNameList(religion, limit = 8, excludeSlug = '') {
   const normalizedReligion = normalizeReligion(religion);
   if (!normalizedReligion) return [];
 
-  const slugs = getNameSlugs(normalizedReligion);
-  const list = [];
-  for (const slug of slugs) {
-    if (slug === excludeSlug) continue;
-    const record = readNameData(normalizedReligion, slug);
-    if (!record?.name) continue;
-    list.push({ name: String(record.name), slug, religion: normalizedReligion, updatedAt: record.updatedAt || record.updated_at || null });
-    if (list.length >= limit) break;
-  }
-  return list;
+  return getLocalNameList(normalizedReligion, limit, excludeSlug).map((item) => ({
+    name: String(item.name),
+    slug: item.slug,
+    religion: normalizedReligion,
+    updatedAt: null,
+  }));
 }
 
 export function getNameEntries(religion) {

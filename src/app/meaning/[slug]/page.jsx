@@ -10,15 +10,20 @@ import { getSiteUrl } from '@/lib/seo/site';
 const BLOG_POSTS = blogPosts;
 
 function readMeaningContent() {
-  return meaningContent;
+  const data = meaningContent;
+  if (Array.isArray(data)) return data;
+  if (data && typeof data === 'object') {
+    return Object.entries(data).map(([slug, item]) => ({ slug, ...(item || {}) }));
+  }
+  return [];
 }
 
 function findMeaning(slug) {
-  return readMeaningContent().find((item) => item.slug === slug);
+  return readMeaningContent().find((item) => item.slug === slug || item.id === slug);
 }
 
 export function generateStaticParams() {
-  return readMeaningContent().map((item) => ({ slug: item.slug }));
+  return readMeaningContent().map((item) => ({ slug: item.slug || item.id }));
 }
 
 function religionLabel(religion) {

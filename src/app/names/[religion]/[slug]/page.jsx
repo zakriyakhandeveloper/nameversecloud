@@ -8,7 +8,7 @@ import NativeBanner from '@/components/Ads/NativeBanner';
 import { readNameData, getNameSlugs, getNameList, filterKnownSlugs } from '@/lib/data/local-name-loader.mjs';
 
 const VALID_RELIGIONS = ['islamic', 'christian', 'hindu'];
-export const dynamicParams = true;
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const params = [];
