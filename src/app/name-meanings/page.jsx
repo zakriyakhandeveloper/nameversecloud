@@ -1,5 +1,3 @@
-import { redirect } from 'next/navigation';
-
 export async function generateMetadata() {
   return {
     title: 'Name Meanings — Search by Meaning | NameVerse',
@@ -8,5 +6,11 @@ export async function generateMetadata() {
 }
 
 export default function NameMeaningsRedirect() {
-  redirect('/names-by-meaning');
+  return (
+    <div className="max-w-4xl mx-auto py-24 text-center">
+      <h1 className="text-3xl font-bold mb-4">Name Meanings</h1>
+      <p className="text-gray-600 mb-6">This page has moved to <a className="text-purple-600 underline" href="/names-by-meaning">Names by Meaning</a>.</p>
+      <p>If you were redirected here, please follow the link above.</p>
+    </div>
+  );
 }
