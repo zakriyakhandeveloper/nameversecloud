@@ -15,7 +15,7 @@ export const metadata = {
     siteName: 'NameVerse',
     images: [
       {
-        url: `${siteUrl}/opengraph-image`,
+        url: `${siteUrl}/og-search.png`,
         width: 1200,
         height: 630,
         alt: 'Baby Names with Meanings — Islamic, Hindu & Christian Names A–Z',

@@ -24,7 +24,7 @@ const STATIC_CATEGORIES = ['modern', 'traditional', 'nature', 'religious', 'clas
 const STATIC_ORIGINS = ['arabic', 'persian', 'turkish', 'indian', 'english', 'other'];
 
 function readMeaningContent() {
-  return meaningContent;
+  return Array.isArray(meaningContent) ? meaningContent : Object.values(meaningContent);
 }
 
 function normalizeReligion(value) {
