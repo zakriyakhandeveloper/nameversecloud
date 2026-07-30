@@ -498,7 +498,56 @@ export async function serverSearchNames(query, options = {}) {
 
   const { religion, limit = 8 } = options;
   const trimmedQuery = query.trim();
+  // Prefer local search indices stored under public/names/<religion>/_search-index.json
+  try {
+    const fs = await import('fs');
+    const path = await import('path');
+    const root = process.cwd();
+    const normalizedReligion = religion ? String(religion).toLowerCase() : null;
+    const candidateReligions = normalizedReligion && ['islamic', 'christian', 'hindu'].includes(normalizedReligion)
+      ? [normalizedReligion]
+      : ['islamic', 'christian', 'hindu'];
 
+    const q = trimmedQuery.toLowerCase();
+    const results = [];
+
+    for (const rel of candidateReligions) {
+      const idxPath = path.join(root, 'public', 'names', rel, '_search-index.json');
+      try {
+        if (!fs.existsSync(idxPath)) continue;
+        const raw = fs.readFileSync(idxPath, 'utf8');
+        const arr = JSON.parse(raw);
+        if (!Array.isArray(arr)) continue;
+        for (const item of arr) {
+          if (!item || !item.name) continue;
+          const name = String(item.name || '').toLowerCase();
+          const meaning = String(item.meaning || item.short_meaning || '').toLowerCase();
+          const origin = String(item.origin || '').toLowerCase();
+          if (name.includes(q) || meaning.includes(q) || origin.includes(q)) {
+            results.push({
+              name: item.name,
+              slug: item.slug || createSlug(item.name),
+              religion: item.religion || rel,
+              meaning: item.meaning || item.short_meaning || '',
+            });
+            if (results.length >= limit) break;
+          }
+        }
+      } catch (e) {
+        // ignore index parse errors
+        continue;
+      }
+      if (results.length >= limit) break;
+    }
+
+    if (results.length > 0) {
+      return { data: results.slice(0, limit), count: results.length, success: true, error: false };
+    }
+  } catch (err) {
+    // If local search fails, fall back to remote API
+  }
+
+  // Fallback: remote search API
   const params = new URLSearchParams();
   params.set('q', trimmedQuery);
   params.set('limit', String(limit));

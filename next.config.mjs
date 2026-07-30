@@ -19,10 +19,10 @@ const nextConfig = {
   poweredByHeader: false,
   productionBrowserSourceMaps: false,
 
-  // Trailing slash policy: NO trailing slashes — single URL version only
-  // This eliminates: /names/islamic/abdullah vs /names/islamic/abdullah/ duplication
-  skipTrailingSlashRedirect: false,
-  trailingSlash: false,
+  // Trailing slash policy for static export (GitHub Pages friendly)
+  // Use `trailingSlash: true` so exported pages become path/index.html
+  skipTrailingSlashRedirect: true,
+  trailingSlash: true,
 
   // Image Optimization
   images: {
