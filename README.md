@@ -1,2 +1,0 @@
-# nameverse
-# Namverse

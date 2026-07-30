@@ -1,0 +1,5 @@
+1:"$Sreact.fragment"
+2:I[97367,["/_next/static/chunks/1cbzl5b-zak4a.js","/_next/static/chunks/14mrh2-p_w84d.js","/_next/static/chunks/2_bb_x1ba_zij.js"],"OutletBoundary"]
+3:"$Sreact.suspense"
+0:{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"max-w-4xl mx-auto py-24 text-center","children":[["$","h1",null,{"className":"text-3xl font-bold mb-4","children":"Viral Baby Names"}],["$","p",null,{"className":"text-gray-600 mb-6","children":["This page has moved to ",["$","a",null,{"className":"text-purple-600 underline","href":"/trending-names","children":"Trending Names"}],"."]}],["$","p",null,{"children":"If you were redirected here, please follow the link above."}]]}],null,["$","$L2",null,{"children":["$","$3",null,{"name":"Next.MetadataOutlet","children":"$@4"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"lf-yX8lWpqEUbyaP3V-ls"}
+4:null
