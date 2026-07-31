@@ -1,3 +1,6 @@
+import fs from 'node:fs';
+import path from 'node:path';
+
 let islamicBoyNames;
 let islamicGirlNames;
 let islamicMixedNames;
@@ -58,36 +61,79 @@ function createSlug(value) {
     .replace(/^-|-$/g, '');
 }
 
+function normalizeNameEntry(religion, slug, item) {
+  const nameValue = item && typeof item === 'object' ? item.name : typeof item === 'string' ? item : undefined;
+  if (!nameValue) return null;
+
+  const cleanedName = String(nameValue || '').trim().replace(/^\n+/, '');
+  const itemSlug = createSlug(slug || nameValue);
+  if (!itemSlug) return null;
+
+  const entry = {
+    name: cleanedName,
+    religion,
+    slug: itemSlug,
+  };
+
+  if (item && typeof item === 'object') {
+    entry.lucky_number = item.luckyNumber;
+    entry.short_meaning = item.meaning;
+    Object.assign(entry, item);
+  }
+
+  return entry;
+}
+
+function readPublicNameDirectory(religion) {
+  if (!__isNode) return [];
+
+  const dirPath = path.join(process.cwd(), 'public', 'names', religion);
+  if (!fs.existsSync(dirPath)) return [];
+
+  const records = [];
+  for (const fileName of fs.readdirSync(dirPath)) {
+    if (!fileName.endsWith('.json') || fileName.startsWith('_')) continue;
+    const filePath = path.join(dirPath, fileName);
+    const stats = fs.statSync(filePath);
+    if (!stats.isFile()) continue;
+
+    try {
+      const raw = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+      const payload = raw && typeof raw === 'object' && 'data' in raw ? raw.data : raw;
+      if (!payload || typeof payload !== 'object') continue;
+
+      const slug = createSlug(payload.slug || path.basename(fileName, '.json'));
+      if (!slug) continue;
+
+      const entry = normalizeNameEntry(religion, slug, payload);
+      if (entry) records.push(entry);
+    } catch (error) {
+      // Some JSON files in the export are partial or malformed; ignore them rather than breaking static generation.
+    }
+  }
+
+  return records;
+}
+
 function buildLocalIndex(religion) {
   const existing = LOCAL_DATA_INDEX.get(religion);
   if (existing) return existing;
 
-  const files = LOCAL_DATA_MAP[religion] || [];
   const index = new Map();
+  const publicEntries = readPublicNameDirectory(religion);
 
+  for (const entry of publicEntries) {
+    if (!entry?.slug) continue;
+    index.set(entry.slug, entry);
+  }
+
+  const files = LOCAL_DATA_MAP[religion] || [];
   for (const list of files) {
     if (!Array.isArray(list)) continue;
     for (const item of list) {
-      const nameValue = item && typeof item === 'object' ? item.name : typeof item === 'string' ? item : undefined;
-      if (!nameValue) continue;
-
-      const itemSlug = createSlug(nameValue);
-      if (!itemSlug || index.has(itemSlug)) continue;
-
-      const cleanedName = String(nameValue || '').trim().replace(/^\n+/, '');
-      const entry = {
-        name: cleanedName,
-        religion,
-        slug: itemSlug,
-      };
-
-      if (item && typeof item === 'object') {
-        entry.lucky_number = item.luckyNumber;
-        entry.short_meaning = item.meaning;
-        Object.assign(entry, item);
-      }
-
-      index.set(itemSlug, entry);
+      const entry = normalizeNameEntry(religion, null, item);
+      if (!entry || index.has(entry.slug)) continue;
+      index.set(entry.slug, entry);
     }
   }
 
