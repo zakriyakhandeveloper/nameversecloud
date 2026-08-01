@@ -15,18 +15,23 @@ function readReligion(religion) {
   for (const file of files) {
     try {
       const raw = fs.readFileSync(path.join(dir, file), 'utf8');
-      const json = JSON.parse(raw);
-      const name = (json.name || json.na || json.title || '').toString();
-      if (!name) continue;
-      out.push({
-        name: name,
-        short_meaning: json.short_meaning || json.meaning || '',
-        meaning: json.meaning || json.short_meaning || '',
-        origin: json.origin || json.origins || '',
-        gender: json.gender || '',
-        language: json.language || '',
-        category: json.category || '',
-      });
+       const json = JSON.parse(raw);
+       const payload = json && typeof json === 'object' && 'data' in json ? json.data : json;
+       const name = (
+         payload?.name || payload?.na || payload?.title ||
+         json?.name || json?.na || json?.title || ''
+       ).toString();
+       if (!name) continue;
+       out.push({
+         name: name,
+         slug: payload?.slug || '',
+         short_meaning: payload?.short_meaning || payload?.meaning || '',
+         meaning: payload?.meaning || payload?.short_meaning || '',
+         origin: payload?.origin || payload?.origins || '',
+         gender: payload?.gender || '',
+         language: payload?.language || '',
+         category: payload?.category || '',
+       });
     } catch (e) {
       // ignore malformed
     }
