@@ -1,4 +1,4 @@
-import { findLocalNameData, getLocalNameList, getAllLocalNameSlugs } from './local-name-data.mjs';
+import { findLocalNameData, getLocalNameList, getAllLocalNameSlugs, getBuildStaticNameSlugs as getBoundStaticNameSlugs } from './local-name-data.mjs';
 
 const VALID_RELIGIONS = ['islamic', 'christian', 'hindu'];
 
@@ -41,6 +41,16 @@ export function getNameSlugs(religion) {
   if (!normalizedReligion) return [];
 
   return getAllLocalNameSlugs(normalizedReligion)
+    .map((slug) => normalizeSlug(slug))
+    .filter(Boolean)
+    .sort((a, b) => a.localeCompare(b));
+}
+
+export function getBuildStaticNameSlugs(religion, limit) {
+  const normalizedReligion = normalizeReligion(religion);
+  if (!normalizedReligion) return [];
+
+  return getBoundStaticNameSlugs(normalizedReligion, limit)
     .map((slug) => normalizeSlug(slug))
     .filter(Boolean)
     .sort((a, b) => a.localeCompare(b));

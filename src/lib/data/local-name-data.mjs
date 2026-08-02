@@ -51,7 +51,7 @@ const LOCAL_DATA_MAP = {
 };
 
 const LOCAL_DATA_INDEX = new Map();
-const HYBRID_BUILD_LIMIT = Number.parseInt(process.env.NEXT_STATIC_NAME_LIMIT || process.env.NEXT_PUBLIC_STATIC_NAME_LIMIT || '18000', 10);
+const HYBRID_BUILD_LIMIT = Number.parseInt(process.env.NEXT_STATIC_NAME_LIMIT || process.env.NEXT_PUBLIC_STATIC_NAME_LIMIT || '2500', 10);
 
 export function getBuildStaticNameSlugs(religion, limit = HYBRID_BUILD_LIMIT) {
   const normalizedReligion = normalizeReligion(religion);

@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import { createSlug, isValidSlug } from '@/lib/seo/url-builder';
 import { generateNamePageMetadata } from '@/lib/seo/name-page-seo';
-import { readNameData, getNameSlugs } from '@/lib/data/local-name-loader.mjs';
+import { readNameData, getNameSlugs, getBuildStaticNameSlugs } from '@/lib/data/local-name-loader.mjs';
 import NameDetailClient from '@/components/name/NameDetailClient';
 import NativeBanner from '@/components/Ads/NativeBanner';
 import { nameAbsoluteUrl } from '@/lib/seo/url-builder';
@@ -13,10 +13,9 @@ export const revalidate = 2592000;
 export async function generateStaticParams() {
   const params = [];
   for (const religion of VALID_RELIGIONS) {
-    for (const slug of getNameSlugs(religion)) {
+    for (const slug of getBuildStaticNameSlugs(religion)) {
       if (slug && isValidSlug(slug)) {
         params.push({ religion, slug });
-        if (params.length >= 18000) return params;
       }
     }
   }
