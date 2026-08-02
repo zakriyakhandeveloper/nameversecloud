@@ -5,7 +5,6 @@ const basePath = process.env.NEXT_PUBLIC_BASE_PATH || (process.env.GITHUB_ACTION
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  output: 'export',
   basePath,
   assetPrefix: basePath,
 
@@ -19,10 +18,19 @@ const nextConfig = {
   poweredByHeader: false,
   productionBrowserSourceMaps: false,
 
-  // Trailing slash policy for static export (GitHub Pages friendly)
-  // Use `trailingSlash: true` so exported pages become path/index.html
-  skipTrailingSlashRedirect: true,
-  trailingSlash: true,
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=0, s-maxage=2592000, stale-while-revalidate=86400',
+          },
+        ],
+      },
+    ];
+  },
 
   // Image Optimization
   images: {
@@ -44,7 +52,6 @@ const nextConfig = {
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
-
 
   // Optimize package imports
   experimental: {

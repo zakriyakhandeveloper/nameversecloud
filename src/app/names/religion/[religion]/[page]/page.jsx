@@ -16,24 +16,13 @@ const RELIGION_LABELS = {
   hindu: 'Hindu',
 };
 
-export const dynamicParams = false;
+export const dynamicParams = true;
+export const revalidate = 2592000;
 
-// Pre-generate all religion pages from local name data
+// Pre-render only the first page for each religion hub; other paginated routes are generated on demand.
 export async function generateStaticParams() {
   const religions = ['islamic', 'christian', 'hindu'];
-  const params = [];
-
-  for (const religion of religions) {
-    const entries = getNameEntries(religion)
-      .filter((item) => item?.data?.name && typeof item.data.name === 'string')
-      .sort((a, b) => a.data.name.localeCompare(b.data.name));
-    const totalPages = Math.max(1, Math.ceil(entries.length / 50));
-    for (let page = 1; page <= totalPages; page++) {
-      params.push({ religion, page: String(page) });
-    }
-  }
-
-  return params;
+  return religions.map((religion) => ({ religion, page: '1' }));
 }
 
 function normalizeReligion(religion) {
