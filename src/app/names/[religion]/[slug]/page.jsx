@@ -7,7 +7,7 @@ import NativeBanner from '@/components/Ads/NativeBanner';
 import { nameAbsoluteUrl } from '@/lib/seo/url-builder';
 
 const VALID_RELIGIONS = ['islamic', 'christian', 'hindu'];
-const STATIC_NAME_BUILD_LIMIT = 1000;
+const STATIC_NAME_BUILD_LIMIT = Number.parseInt(process.env.NEXT_STATIC_NAME_LIMIT || process.env.NEXT_PUBLIC_STATIC_NAME_LIMIT || '1000', 10);
 export const dynamicParams = true;
 export const revalidate = 5184000;
 

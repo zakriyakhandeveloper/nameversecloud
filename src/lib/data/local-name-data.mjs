@@ -52,7 +52,7 @@ const LOCAL_DATA_MAP = {
 
 const LOCAL_DATA_INDEX = new Map();
 const DEFAULT_STATIC_NAME_LIMIT = 1000;
-const HYBRID_BUILD_LIMIT = DEFAULT_STATIC_NAME_LIMIT;
+const HYBRID_BUILD_LIMIT = Number.parseInt(process.env.NEXT_STATIC_NAME_LIMIT || process.env.NEXT_PUBLIC_STATIC_NAME_LIMIT || String(DEFAULT_STATIC_NAME_LIMIT), 10);
 
 function normalizeReligion(religion) {
   if (!religion || typeof religion !== 'string') return null;

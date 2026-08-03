@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev -p 3000",
     "generate-search-index": "node scripts/generate-search-index.js",
-    "build": "npm run generate-search-index && node scripts/build-sitemap.js && next build",
+    "build": "npm run generate-search-index && node scripts/build-sitemap.js && opennextjs-cloudflare build",
     "start": "next start -H 0.0.0.0 -p 3000",
     "lint": "next lint",
     "ci:validate-slugs": "node scripts/ci-validate-slugs.js",
@@ -19,9 +19,9 @@
     "reset": "npm run clear-all-cache && npm run dev",
     "revalidate:name": "node scripts/revalidate-name.js",
     "revalidate:tag": "node scripts/revalidate-name.js --tag",
-    "cf:build": "NEXT_STATIC_NAME_LIMIT=2500 npm run build && NEXT_STATIC_NAME_LIMIT=2500 opennextjs-cloudflare build",
-    "cf:preview": "NEXT_STATIC_NAME_LIMIT=2500 npm run cf:build && wrangler dev",
-    "cf:deploy": "NEXT_STATIC_NAME_LIMIT=2500 npm run cf:build && wrangler deploy",
+    "cf:build": "NEXT_STATIC_NAME_LIMIT=2500 npm run build",
+    "cf:preview": "npm run cf:build && wrangler dev",
+    "cf:deploy": "npm run cf:build && wrangler deploy",
     "deploy": "npm run cf:deploy",
     "preview": "npm run cf:preview"
   },
