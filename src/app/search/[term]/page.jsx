@@ -6,7 +6,7 @@ import ClientComponent from './ClientComponent';
 import { createSafeSlug } from '@/lib/utils/createSafeSlug';
 
 export const dynamicParams = true;
-export const revalidate = 2592000;
+export const revalidate = 5184000;
 export function generateStaticParams() {
   return [{ term: 'a' }, { term: 'adam' }, { term: 'muhammad' }, { term: 'islamic' }];
 }

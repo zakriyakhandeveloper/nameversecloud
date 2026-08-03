@@ -9,12 +9,13 @@ import { nameAbsoluteUrl } from '@/lib/seo/url-builder';
 const VALID_RELIGIONS = ['islamic', 'christian', 'hindu'];
 const STATIC_NAME_BUILD_LIMIT = 300;
 export const dynamicParams = true;
-export const revalidate = 2592000;
+export const revalidate = 5184000;
 
 export async function generateStaticParams() {
   const params = [];
   for (const religion of VALID_RELIGIONS) {
     for (const slug of getBuildStaticNameSlugs(religion, STATIC_NAME_BUILD_LIMIT)) {
+      if (params.length >= STATIC_NAME_BUILD_LIMIT) return params;
       if (slug && isValidSlug(slug)) {
         params.push({ religion, slug });
       }

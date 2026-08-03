@@ -17,7 +17,7 @@ const RELIGION_LABELS = {
 };
 
 export const dynamicParams = true;
-export const revalidate = 2592000;
+export const revalidate = 5184000;
 
 // Pre-render only the first page for each religion hub; other paginated routes are generated on demand.
 export async function generateStaticParams() {

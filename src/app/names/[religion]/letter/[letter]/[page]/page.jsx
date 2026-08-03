@@ -11,7 +11,8 @@ const VALID_RELIGIONS = ['islamic', 'christian', 'hindu'];
 const ALPHABET = 'abcdefghijklmnopqrstuvwxyz#'.split('');
 const NAMES_PER_PAGE = 50;
 
-export const dynamicParams = false;
+export const dynamicParams = true;
+export const revalidate = 5184000;
 
 export async function generateStaticParams() {
   const params = [];
