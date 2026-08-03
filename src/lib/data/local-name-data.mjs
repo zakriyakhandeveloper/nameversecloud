@@ -51,7 +51,17 @@ const LOCAL_DATA_MAP = {
 };
 
 const LOCAL_DATA_INDEX = new Map();
-const HYBRID_BUILD_LIMIT = Number.parseInt(process.env.NEXT_STATIC_NAME_LIMIT || process.env.NEXT_PUBLIC_STATIC_NAME_LIMIT || '2500', 10);
+const DEFAULT_STATIC_NAME_LIMIT = 300;
+const HYBRID_BUILD_LIMIT = Number.parseInt(process.env.NEXT_STATIC_NAME_LIMIT || process.env.NEXT_PUBLIC_STATIC_NAME_LIMIT || String(DEFAULT_STATIC_NAME_LIMIT), 10);
+
+function normalizeReligion(religion) {
+  if (!religion || typeof religion !== 'string') return null;
+  const normalized = religion.toLowerCase().trim();
+  if (normalized === 'islam' || normalized === 'muslim') return 'islamic';
+  if (normalized === 'christianity') return 'christian';
+  if (normalized === 'hinduism') return 'hindu';
+  return ['islamic', 'christian', 'hindu'].includes(normalized) ? normalized : null;
+}
 
 export function getBuildStaticNameSlugs(religion, limit = HYBRID_BUILD_LIMIT) {
   const normalizedReligion = normalizeReligion(religion);
