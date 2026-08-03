@@ -51,7 +51,7 @@ const LOCAL_DATA_MAP = {
 };
 
 const LOCAL_DATA_INDEX = new Map();
-const DEFAULT_STATIC_NAME_LIMIT = 300;
+const DEFAULT_STATIC_NAME_LIMIT = 1000;
 const HYBRID_BUILD_LIMIT = DEFAULT_STATIC_NAME_LIMIT;
 
 function normalizeReligion(religion) {

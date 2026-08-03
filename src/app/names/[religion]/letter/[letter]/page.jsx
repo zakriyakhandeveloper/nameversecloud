@@ -9,8 +9,9 @@ function normalizeReligion(religion) {
   return VALID_RELIGIONS.includes(normalized) ? normalized : 'islamic';
 }
 
+export const dynamic = 'force-dynamic';
 export function generateStaticParams() {
-  return VALID_RELIGIONS.flatMap((religion) => LETTERS.map((letter) => ({ religion, letter })));
+  return [];
 }
 
 export default function LetterLetterPage({ params }) {

@@ -10,17 +10,12 @@ import BlogSection from '@/components/Blog/BlogSection';
 const VALID_RELIGIONS = ['islamic', 'christian', 'hindu'];
 const STATIC_CATEGORIES = ['modern', 'traditional', 'nature', 'religious', 'classical', 'unique'];
 
+export const dynamic = 'force-dynamic';
 export const dynamicParams = true;
 export const revalidate = 5184000;
 
 export async function generateStaticParams() {
-  const params = [];
-  for (const religion of VALID_RELIGIONS) {
-    for (const category of STATIC_CATEGORIES) {
-      params.push({ religion, category, page: '1' });
-    }
-  }
-  return params;
+  return [];
 }
 
 function normalizeReligion(religion) {

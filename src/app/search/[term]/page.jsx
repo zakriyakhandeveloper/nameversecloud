@@ -5,10 +5,11 @@ import { NOINDEX_ROBOTS } from '@/lib/seo/topical-authority-architecture';
 import ClientComponent from './ClientComponent';
 import { createSafeSlug } from '@/lib/utils/createSafeSlug';
 
+export const dynamic = 'force-dynamic';
 export const dynamicParams = true;
 export const revalidate = 5184000;
 export function generateStaticParams() {
-  return [{ term: 'a' }, { term: 'adam' }, { term: 'muhammad' }, { term: 'islamic' }];
+  return [];
 }
 
 // ISR: 30-day cache — search results are relatively static

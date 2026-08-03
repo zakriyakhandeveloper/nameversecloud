@@ -16,13 +16,12 @@ const RELIGION_LABELS = {
   hindu: 'Hindu',
 };
 
+export const dynamic = 'force-dynamic';
 export const dynamicParams = true;
 export const revalidate = 5184000;
 
-// Pre-render only the first page for each religion hub; other paginated routes are generated on demand.
 export async function generateStaticParams() {
-  const religions = ['islamic', 'christian', 'hindu'];
-  return religions.map((religion) => ({ religion, page: '1' }));
+  return [];
 }
 
 function normalizeReligion(religion) {

@@ -7,17 +7,19 @@ import NativeBanner from '@/components/Ads/NativeBanner';
 import { nameAbsoluteUrl } from '@/lib/seo/url-builder';
 
 const VALID_RELIGIONS = ['islamic', 'christian', 'hindu'];
-const STATIC_NAME_BUILD_LIMIT = 300;
+const STATIC_NAME_BUILD_LIMIT = 1000;
 export const dynamicParams = true;
 export const revalidate = 5184000;
 
 export async function generateStaticParams() {
   const params = [];
   for (const religion of VALID_RELIGIONS) {
+    let perReligionCount = 0;
     for (const slug of getBuildStaticNameSlugs(religion, STATIC_NAME_BUILD_LIMIT)) {
-      if (params.length >= STATIC_NAME_BUILD_LIMIT) return params;
+      if (perReligionCount >= STATIC_NAME_BUILD_LIMIT) break;
       if (slug && isValidSlug(slug)) {
         params.push({ religion, slug });
+        perReligionCount += 1;
       }
     }
   }

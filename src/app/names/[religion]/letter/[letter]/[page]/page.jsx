@@ -11,21 +11,12 @@ const VALID_RELIGIONS = ['islamic', 'christian', 'hindu'];
 const ALPHABET = 'abcdefghijklmnopqrstuvwxyz#'.split('');
 const NAMES_PER_PAGE = 50;
 
+export const dynamic = 'force-dynamic';
 export const dynamicParams = true;
 export const revalidate = 5184000;
 
 export async function generateStaticParams() {
-  const params = [];
-  const letters = 'abcdefghijklmnopqrstuvwxyz#'.split('');
-  for (const religion of VALID_RELIGIONS) {
-    const entries = getNameEntries(religion);
-    const availableLetters = new Set(entries.map((entry) => entry?.data?.name?.charAt(0)?.toLowerCase()).filter(Boolean));
-    for (const letter of letters) {
-      if (!availableLetters.has(letter) && letter !== '#') continue;
-      params.push({ religion, letter, page: '1' });
-    }
-  }
-  return params;
+  return [];
 }
 
 function normalizeReligion(religion) {
